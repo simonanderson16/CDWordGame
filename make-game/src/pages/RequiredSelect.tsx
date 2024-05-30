@@ -4,13 +4,16 @@ import { useState, useEffect } from "react";
 const RequiredSelect = ({
   requiredLetter,
   setRequiredLetter,
+  availableLetters,
 }: {
   requiredLetter: string;
   setRequiredLetter: (requiredLetter: string) => void;
+  availableLetters: Array<string>;
 }) => {
   const [currentSelection, setCurrentSelection] = useState<string>(
     requiredLetter || ""
   );
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleKeyPress = (event: KeyboardEvent) => {
     const { key } = event;
@@ -26,20 +29,31 @@ const RequiredSelect = ({
     };
   }, []);
 
+  const handleSubmit = () => {
+    if (!availableLetters.includes(currentSelection)) {
+      setErrorMessage("");
+      setRequiredLetter(currentSelection);
+    } else {
+      setErrorMessage(
+        "Required letter can not be one of the other available letters"
+      );
+    }
+  };
+
   return (
-    <>
-      <h3>
+    <div className="make-step-container">
+      <h3 className="instructions">
         Type the letter which you would like to be the required letter for this
         game.
       </h3>
-      <p>{currentSelection}</p>
-      <Button
-        onClick={() => setRequiredLetter(currentSelection)}
-        disabled={!currentSelection}
-      >
+      <div className="selected-letter">
+        <p>{currentSelection}</p>
+      </div>
+      <Button onClick={() => handleSubmit()} disabled={!currentSelection}>
         Confirm
       </Button>
-    </>
+      {errorMessage && <p>{errorMessage}</p>}
+    </div>
   );
 };
 
@@ -49,6 +63,6 @@ export default RequiredSelect;
 
 TODO: 
 
-if available letters are already selected, don't allow a selection that is within that
+add a key that tells them about backspace, typing, etc.
 
 */

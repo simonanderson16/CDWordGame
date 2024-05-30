@@ -6,6 +6,8 @@ import DateSelect from "./DateSelect.jsx";
 import RequiredSelect from "./RequiredSelect.js";
 import { format } from "date-fns";
 import AvailableSelect from "./AvailableSelect.js";
+import "../styles/Make.css";
+import { HomeIcon } from "@radix-ui/react-icons";
 
 const Make = () => {
   const [date, setDate] = useState<Date>();
@@ -13,40 +15,40 @@ const Make = () => {
   const [availableLetters, setAvailableLetters] = useState<Array<string>>([]);
 
   return (
-    <div>
-      <h1>Make Game</h1>
+    <div className="make-container">
+      <h1 className="header">Make Game</h1>
       <Link to="/">
-        <Button>Home</Button>
+        <Button className="home-button">
+          <HomeIcon className="mr-2 h-4 w-4" />
+          Home
+        </Button>
       </Link>
-      <Tabs defaultValue="account">
+      <Tabs defaultValue="account" className="tabs">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="date">1. Date</TabsTrigger>
-          <TabsTrigger value="required">2. Required Letter</TabsTrigger>
-          <TabsTrigger value="available">3. Available Letters</TabsTrigger>
+          <TabsTrigger value="required" disabled={!date}>
+            2. Required Letter
+          </TabsTrigger>
+          <TabsTrigger value="available" disabled={!date || !requiredLetter}>
+            3. Additional Letters
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="date">
-          <div>
-            <p>Select the date.</p>
-            <DateSelect date={date} setDate={setDate} />
-          </div>
+          <DateSelect date={date} setDate={setDate} />
         </TabsContent>
         <TabsContent value="required">
-          <div>
-            <p>Select the required letter.</p>
-            <RequiredSelect
-              requiredLetter={requiredLetter}
-              setRequiredLetter={setRequiredLetter}
-            />
-          </div>
+          <RequiredSelect
+            requiredLetter={requiredLetter}
+            setRequiredLetter={setRequiredLetter}
+            availableLetters={availableLetters}
+          />
         </TabsContent>
         <TabsContent value="available">
-          <div>
-            <p>Select the available letters.</p>
-            <AvailableSelect
-              availableLetters={availableLetters}
-              setAvailableLetters={setAvailableLetters}
-            />
-          </div>
+          <AvailableSelect
+            requiredLetter={requiredLetter}
+            availableLetters={availableLetters}
+            setAvailableLetters={setAvailableLetters}
+          />
         </TabsContent>
       </Tabs>
       <div>

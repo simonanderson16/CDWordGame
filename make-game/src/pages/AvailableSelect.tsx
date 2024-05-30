@@ -2,14 +2,17 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
 const AvailableSelect = ({
+  requiredLetter,
   availableLetters,
   setAvailableLetters,
 }: {
+  requiredLetter: string;
   availableLetters: Array<string>;
   setAvailableLetters: (availableLetters: Array<string>) => void;
 }) => {
   const [currentSelection, setCurrentSelection] =
     useState<Array<string>>(availableLetters);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleKeyDown = (event: KeyboardEvent) => {
     const { key } = event;
@@ -37,21 +40,36 @@ const AvailableSelect = ({
     };
   }, []);
 
+  const handleSubmit = () => {
+    if (!currentSelection.includes(requiredLetter)) {
+      setErrorMessage("");
+      setAvailableLetters(currentSelection);
+    } else {
+      setErrorMessage("Can not include required letter in this selection.");
+    }
+  };
+
   return (
-    <>
-      <h3>
-        Type the 6 letters which you would like to be available for this game.
+    <div className="make-step-container">
+      <h3 className="instructions">
+        Type the 6 additional letters which you would like to be available for
+        this game.
       </h3>
-      {currentSelection.map((letter, index) => (
-        <p key={index}>{letter}</p>
-      ))}
+      <div className="selected-available-letters">
+        {currentSelection.map((letter, index) => (
+          <div className="selected-letter">
+            <p key={index}>{letter}</p>
+          </div>
+        ))}
+      </div>
       <Button
-        onClick={() => setAvailableLetters(currentSelection)}
+        onClick={() => handleSubmit()}
         disabled={currentSelection.length === 0}
       >
         Confirm
       </Button>
-    </>
+      {errorMessage && <p>{errorMessage}</p>}
+    </div>
   );
 };
 
