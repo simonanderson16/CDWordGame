@@ -1,7 +1,14 @@
+import { Link } from "react-router-dom";
 import Make from "./pages/Make";
 
 function App() {
-  return <Make />;
+  return (
+    <div>
+      <h1>Welcome!</h1>
+      <Link to="/make">Make a Game</Link>
+      <Link to="/games">All Games</Link>
+    </div>
+  );
 }
 
 export default App;
