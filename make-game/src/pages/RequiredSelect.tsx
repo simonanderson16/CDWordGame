@@ -52,8 +52,8 @@ const RequiredSelect = ({
     <Card>
       <CardHeader>
         <CardDescription>
-          Type the letter which you would like to be the required letter for
-          this game.
+          <strong>Type</strong> the letter which you would like to be the
+          required letter for this game.
         </CardDescription>
       </CardHeader>
       <CardContent>

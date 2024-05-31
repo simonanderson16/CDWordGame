@@ -59,8 +59,8 @@ const AvailableSelect = ({
     <Card>
       <CardHeader>
         <CardDescription>
-          Type the 6 additional letters which you would like to be available for
-          this game.
+          <strong>Type</strong> the 6 additional letters which you would like to
+          be available for this game.
         </CardDescription>
       </CardHeader>
       <CardContent>

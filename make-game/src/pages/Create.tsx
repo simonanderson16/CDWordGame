@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import DateSelect from "./DateSelect.jsx";
+import DateSelect from "./DateSelect.js";
 import RequiredSelect from "./RequiredSelect.js";
 import { format } from "date-fns";
 import AvailableSelect from "./AvailableSelect.js";
 import "../styles/Make.css";
-import { HomeIcon } from "@radix-ui/react-icons";
+import { HomeIcon, TrashIcon } from "@radix-ui/react-icons";
 import {
   Card,
   CardContent,
@@ -16,14 +16,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const Make = () => {
+const Create = () => {
   const [date, setDate] = useState<Date>();
   const [requiredLetter, setRequiredLetter] = useState<string>("");
   const [availableLetters, setAvailableLetters] = useState<Array<string>>([]);
 
+  const clear = () => {
+    setDate(undefined);
+    setRequiredLetter("");
+    setAvailableLetters([]);
+  };
+
   return (
     <div className="make-container">
-      <h1 className="header">Make Game</h1>
+      <h1 className="header">Create Game</h1>
       <Link to="/">
         <Button className="home-button">
           <HomeIcon className="mr-2 h-4 w-4" />
@@ -79,31 +85,46 @@ const Make = () => {
             </p>
           </div>
           <div className="summary-item">
-            <p className="summary-label">Available Letters:</p>
+            <p className="summary-label">Additional Letters:</p>
             <p className="summary-value">
               {availableLetters.length === 6
                 ? availableLetters.join(" ")
                 : "Not yet selected"}
             </p>
           </div>
-          <Button
-            className="save-button"
-            disabled={!date || !requiredLetter || availableLetters.length != 6}
-          >
-            Save Game
-          </Button>
+          <div className="card-row-between">
+            <Button
+              className="summary-button"
+              disabled={
+                !date || !requiredLetter || availableLetters.length != 6
+              }
+            >
+              Save Game
+            </Button>
+            <Button
+              disabled={
+                !date && !requiredLetter && availableLetters.length != 6
+              }
+              variant="destructive"
+              onClick={() => clear()}
+              className="summary-button"
+            >
+              <TrashIcon />
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>
   );
 };
 
-export default Make;
+export default Create;
 
 /* 
 
 TODO: 
 
 don't allow date for which there is already a game 
+make it so clearing takes you back to date tab
 
 */

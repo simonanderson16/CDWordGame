@@ -38,6 +38,12 @@
   align-items: center;
 }
 
+.card-row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .selected-letter {
   display: flex;
   flex-direction: column;
@@ -78,7 +84,7 @@
   /* border: 1px solid rgba(128, 128, 128, 0.5); */
 }
 
-.save-button {
+.summary-button {
   margin: 5px;
 }
 

@@ -35,7 +35,8 @@ const DateSelect = ({
     <Card>
       <CardHeader>
         <CardDescription>
-          Select the date on which you would like the game to be released.
+          <strong>Select</strong> the date on which you would like the game to
+          be released.
         </CardDescription>
       </CardHeader>
       <CardContent>
