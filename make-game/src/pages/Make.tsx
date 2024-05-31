@@ -8,6 +8,13 @@ import { format } from "date-fns";
 import AvailableSelect from "./AvailableSelect.js";
 import "../styles/Make.css";
 import { HomeIcon } from "@radix-ui/react-icons";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const Make = () => {
   const [date, setDate] = useState<Date>();
@@ -23,7 +30,7 @@ const Make = () => {
           Home
         </Button>
       </Link>
-      <Tabs defaultValue="account" className="tabs">
+      <Tabs defaultValue="date" className="tabs mb-5">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="date">1. Date</TabsTrigger>
           <TabsTrigger value="required" disabled={!date}>
@@ -51,14 +58,42 @@ const Make = () => {
           />
         </TabsContent>
       </Tabs>
-      <div>
-        <p>Date: {date ? format(date, "PPP") : "No date selected"}</p>
-        <p>Required Letter: {requiredLetter}</p>
-        <p>Available Letters:</p>
-        {availableLetters.map((letter, index) => (
-          <p key={index}>{letter}</p>
-        ))}
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Summary</CardTitle>
+          <CardDescription>
+            Below are the details of the game you are currently creating.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="summary-item">
+            <p className="summary-label">Date:</p>
+            <p className="summary-value">
+              {date ? format(date, "PPP") : "Not yet selected"}
+            </p>
+          </div>
+          <div className="summary-item">
+            <p className="summary-label">Required Letter:</p>
+            <p className="summary-value">
+              {requiredLetter || "Not yet selected"}
+            </p>
+          </div>
+          <div className="summary-item">
+            <p className="summary-label">Available Letters:</p>
+            <p className="summary-value">
+              {availableLetters.length === 6
+                ? availableLetters.join(" ")
+                : "Not yet selected"}
+            </p>
+          </div>
+          <Button
+            className="save-button"
+            disabled={!date || !requiredLetter || availableLetters.length != 6}
+          >
+            Save Game
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 };

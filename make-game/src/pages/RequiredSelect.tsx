@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
 
 const RequiredSelect = ({
   requiredLetter,
@@ -17,15 +23,17 @@ const RequiredSelect = ({
 
   const handleKeyPress = (event: KeyboardEvent) => {
     const { key } = event;
-    if (key.length === 1 && /^[a-zA-Z]$/.test(key)) {
+    if (key === "Backspace") {
+      setCurrentSelection("");
+    } else if (key.length === 1 && /^[a-zA-Z]$/.test(key)) {
       setCurrentSelection(key.toUpperCase());
     }
   };
 
   useEffect(() => {
-    window.addEventListener("keypress", handleKeyPress);
+    window.addEventListener("keydown", handleKeyPress);
     return () => {
-      window.removeEventListener("keypress", handleKeyPress);
+      window.removeEventListener("keydown", handleKeyPress);
     };
   }, []);
 
@@ -35,25 +43,31 @@ const RequiredSelect = ({
       setRequiredLetter(currentSelection);
     } else {
       setErrorMessage(
-        "Required letter can not be one of the other available letters"
+        "Required letter can not be one of the other available letters."
       );
     }
   };
 
   return (
-    <div className="make-step-container">
-      <h3 className="instructions">
-        Type the letter which you would like to be the required letter for this
-        game.
-      </h3>
-      <div className="selected-letter">
-        <p>{currentSelection}</p>
-      </div>
-      <Button onClick={() => handleSubmit()} disabled={!currentSelection}>
-        Confirm
-      </Button>
-      {errorMessage && <p>{errorMessage}</p>}
-    </div>
+    <Card>
+      <CardHeader>
+        <CardDescription>
+          Type the letter which you would like to be the required letter for
+          this game.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="card-row">
+          <div className="selected-letter">
+            <p>{currentSelection}</p>
+          </div>
+          <Button onClick={() => handleSubmit()} disabled={!currentSelection}>
+            Confirm
+          </Button>
+        </div>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+      </CardContent>
+    </Card>
   );
 };
 

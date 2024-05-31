@@ -12,6 +12,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
 import "../styles/Make.css";
 
 const DateSelect = ({
@@ -26,45 +32,49 @@ const DateSelect = ({
   );
 
   return (
-    <div className="make-step-container">
-      <p className="instructions">
-        Select the date on which you would like the game to be released.
-      </p>
-      <div className="date-input-row">
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant={"outline"}
-              className={cn(
-                "w-[240px] justify-start text-left font-normal",
-                !currentSelection && "text-muted-foreground"
-              )}
-            >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {currentSelection ? (
-                format(currentSelection, "PPP")
-              ) : (
-                <span>Pick a date</span>
-              )}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              mode="single"
-              selected={currentSelection}
-              onSelect={setCurrentSelection}
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
-        <Button
-          onClick={() => setDate(currentSelection)}
-          disabled={!currentSelection}
-        >
-          Confirm
-        </Button>
-      </div>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardDescription>
+          Select the date on which you would like the game to be released.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="card-row">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={"outline"}
+                className={cn(
+                  "w-[240px] justify-start text-left font-normal",
+                  !currentSelection && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {currentSelection ? (
+                  format(currentSelection, "PPP")
+                ) : (
+                  <span>Pick a date</span>
+                )}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={currentSelection}
+                onSelect={setCurrentSelection}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+          <Button
+            onClick={() => setDate(currentSelection)}
+            disabled={!currentSelection}
+          >
+            Confirm
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
