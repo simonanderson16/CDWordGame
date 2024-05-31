@@ -67,8 +67,8 @@ const AvailableSelect = ({
         <div className="card-row">
           <div className="selected-available-letters">
             {currentSelection.map((letter, index) => (
-              <div className="selected-letter">
-                <p key={index}>{letter}</p>
+              <div className="selected-letter" key={index}>
+                <p>{letter}</p>
               </div>
             ))}
             {

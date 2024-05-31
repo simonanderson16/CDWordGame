@@ -20,6 +20,7 @@
 
 .tabs {
   width: 50%;
+  min-width: 600px;
 }
 
 .make-step-container {
@@ -61,12 +62,21 @@
   gap: 10px;
 }
 
+.summary-card {
+  width: 50%;
+  min-width: 600px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .summary-item {
   background-color: #f0f4fc;
   border-radius: 5px;
-  padding: 10px;
   margin: 5px;
-  display: flex;
+  padding: 5px;
   align-items: center;
   gap: 10px;
 }
@@ -74,6 +84,8 @@
 .summary-label {
   font-weight: bold;
   font-size: 0.9rem;
+  margin-left: 2px;
+  margin-bottom: 2px;
 }
 
 .summary-value {
@@ -96,4 +108,28 @@
   padding: 5px;
   border-radius: 5px;
   width: fit-content;
+}
+
+.submit-error {
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.answer-bank {
+  display: flex;
+  gap: 10px;
+  border: 1px solid #e2e8f0;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.answer-item {
+  display: flex;
+  background-color: #f0f4fc;
+  align-items: center;
+  padding-left: 10px;
+  border-radius: 5px;
 }
