@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DateSelect from "./DateSelect.js";
@@ -28,6 +28,10 @@ const Create = () => {
   const [availableLetters, setAvailableLetters] = useState<Array<string>>([]);
   const [answers, setAnswers] = useState<Array<string>>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
+
+  useEffect(() => {
+    setAnswers([]);
+  }, [availableLetters]);
 
   const clear = () => {
     setDate(undefined);
