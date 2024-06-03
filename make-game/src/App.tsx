@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 function App() {
   return (
     <div>
-      <h1>Welcome!</h1>
+      <h1>Hoos Spelling: Admin Home</h1>
       <Link to="/create">
         <Button>Create a Game</Button>
       </Link>
