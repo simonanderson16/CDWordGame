@@ -47,4 +47,23 @@ router.post("/", async (req, res) => {
   }
 });
 
+// get all games
+router.get("/", async (req, res) => {
+  try {
+    const allGamesSnapshot = await getDocs(collection(db, "games"));
+    const allGames = [];
+    allGamesSnapshot.forEach((doc) => {
+      allGames.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    res.status(200).json(allGames);
+  } catch (error) {
+    res.status(500).json({
+      error: "Failed to retrieve games. Please try again later.",
+    });
+  }
+});
+
 module.exports = router;

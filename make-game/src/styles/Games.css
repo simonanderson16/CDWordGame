@@ -12,8 +12,61 @@
   margin: 1rem 0;
 }
 
-
 .games-card {
-    width: 50%;
-    min-width: 600px;
-  }
+  width: 100%;
+  min-width: 600px;
+}
+
+.tabs {
+  width: 50%;
+  min-width: 600px;
+}
+
+.today-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.grid-item {
+  background-color: #f0f4fc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.grid-item-1 {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.grid-item-2 {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+
+.grid-item-3 {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+}
+
+.grid-item-4 {
+  grid-column: 1/4;
+  grid-row: 2 / 3;
+}
+
+.white-box {
+  background-color: white;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #e2e8f0;
+  margin-top: 5px;
+}
+
+.todays-answers {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}

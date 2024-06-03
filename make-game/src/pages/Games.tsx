@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,9 +11,14 @@ import { HomeIcon } from "@radix-ui/react-icons";
 import "../styles/Games.css";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase.js";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import axios from "axios";
+import TodaysGame from "./TodaysGame.js";
 
 const Games = () => {
   const navigate = useNavigate();
+  const [tab, setTab] = useState<string>("today");
+  const [allGames, setAllGames] = useState<Array<Object>>([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -21,9 +26,22 @@ const Games = () => {
         navigate("/");
       }
     });
-
     return () => unsubscribe();
   }, [navigate]);
+
+  const onTabChange = (value: string) => {
+    setTab(value);
+  };
+
+  const getAllGames = async () => {
+    const response = await axios.get("http://localhost:8888/create");
+    setAllGames(response.data);
+  };
+
+  useEffect(() => {
+    getAllGames();
+  }, []);
+
   return (
     <div className="games-container">
       <h1 className="header">Hoos Spelling: All Games</h1>
@@ -33,19 +51,53 @@ const Games = () => {
           Home
         </Button>
       </Link>
-      {/* filter by past, today, and upcoming (only should be able to edit upcoming) */}
-      <Card className="games-card">
-        <CardHeader>
-          <CardDescription>
-            This card will contain info about all games that have already been
-            created.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          You will be able to filter by past, today, and upcoming, with the
-          ability to edit upcoming games.
-        </CardContent>
-      </Card>
+      <Tabs
+        defaultValue="today"
+        className="tabs mb-5"
+        value={tab}
+        onValueChange={onTabChange}
+      >
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="past">Past Games</TabsTrigger>
+          <TabsTrigger value="today">Today's Game</TabsTrigger>
+          <TabsTrigger value="future">Future Games</TabsTrigger>
+        </TabsList>
+        <TabsContent value="past">
+          <Card className="games-card">
+            <CardHeader>
+              <CardDescription>
+                All of the following games have already ended. You can delete
+                each one you would no longer like to store.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>content</CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="today">
+          <Card className="games-card">
+            <CardHeader>
+              <CardDescription>
+                The following game is currently active. You will not be able to
+                delete it until it is no longer live.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <TodaysGame allGames={allGames} />
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="future">
+          <Card className="games-card">
+            <CardHeader>
+              <CardDescription>
+                All of the following games have been created but not yet
+                released. You can edit or delete any of these games.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>content</CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };

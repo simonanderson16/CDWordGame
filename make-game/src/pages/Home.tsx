@@ -82,7 +82,7 @@ const Home = () => {
           <DialogTrigger asChild>
             <Button variant="outline" className="homepage-button">
               <PersonIcon className="mr-2 h-4 w-4" />
-              Add a New User
+              Add a New Admin
             </Button>
           </DialogTrigger>
           <DialogContent>

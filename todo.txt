@@ -1,4 +1,9 @@
 Make Game
+- store game values in context ? (avoid the need for so many props)
+- firebase auth
+    - ability to add another user (and set a default password)
+    - ability to change your own password
+    - error message on login screen
 - display backend error messages (i.e. firebase errors)
 - look into OED or other dictionary API
 
