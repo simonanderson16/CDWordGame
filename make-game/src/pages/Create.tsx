@@ -9,7 +9,7 @@ import { HomeIcon } from "@radix-ui/react-icons";
 import AnswerSelect from "./AnswerSelect.js";
 import { DateRange } from "react-day-picker";
 import SummaryCard from "./SummaryCard.js";
-import "../styles/Make.css";
+import "../styles/Create.css";
 
 const Create = () => {
   const [dates, setDates] = useState<DateRange | undefined>();

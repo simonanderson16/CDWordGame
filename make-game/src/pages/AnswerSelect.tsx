@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Input } from "@/components/ui/input";
+import "../styles/Create.css";
 
 const AnswerSelect = ({
   requiredLetter,

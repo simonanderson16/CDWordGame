@@ -19,7 +19,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { DateRange } from "react-day-picker";
-import "../styles/Make.css";
+import "../styles/Create.css";
 
 const DateSelect = ({
   dates,

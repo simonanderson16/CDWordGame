@@ -6,6 +6,7 @@ import {
   CardDescription,
   CardHeader,
 } from "@/components/ui/card";
+import "../styles/Create.css";
 
 const RequiredSelect = ({
   requiredLetter,

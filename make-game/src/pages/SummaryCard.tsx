@@ -15,7 +15,7 @@ import {
 import { TrashIcon, Pencil2Icon } from "@radix-ui/react-icons";
 import { DateRange } from "react-day-picker";
 import axios from "axios";
-import "../styles/Make.css";
+import "../styles/Create.css";
 
 const SummaryCard = ({
   dates,
