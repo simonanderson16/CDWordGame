@@ -199,7 +199,10 @@ const SummaryCard = ({
           <Button
             disabled={!dates && !requiredLetter && availableLetters.length != 6}
             variant="destructive"
-            onClick={() => clear()}
+            onClick={() => {
+              clear();
+              setTab("dates");
+            }}
             className="summary-button"
           >
             <TrashIcon />
