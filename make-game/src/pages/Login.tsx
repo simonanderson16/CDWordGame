@@ -8,7 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const onLogin = (e) => {
+  const onLogin = (e: any) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -23,8 +23,6 @@ const Login = () => {
         console.log(errorCode, errorMessage);
       });
   };
-
-  useEffect(() => console.log(auth.currentUser), []);
 
   return (
     <div>

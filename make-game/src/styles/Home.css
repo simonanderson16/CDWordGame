@@ -19,16 +19,28 @@
   margin: 1rem 0;
 }
 
-.buttons-container {
+.mock-card {
   border: 1px solid #e2e8f0;
   border-radius: 5px;
   padding: 20px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.card-header {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
 }
 
 .homepage-button {
   margin-bottom: 10px;
   margin-top: 10px;
-  width: 100%;
+  min-width: 200px;
 }
 
 .made-for {
@@ -49,4 +61,24 @@
 
 .email-link {
   text-decoration: underline;
+}
+
+.success-msg {
+  color: #07991a;
+  font-size: 0.8rem;
+  margin-top: 10px;
+  background-color: rgb(224, 245, 210);
+  padding: 5px;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.error-msg {
+  color: rgb(197, 2, 2);
+  font-size: 0.8rem;
+  margin-top: 10px;
+  background-color: rgb(255, 228, 228);
+  padding: 5px;
+  border-radius: 5px;
+  width: fit-content;
 }
