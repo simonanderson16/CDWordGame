@@ -29,6 +29,7 @@ const Create = () => {
   const [availableLetters, setAvailableLetters] = useState<Array<string>>([]);
   const [answers, setAnswers] = useState<Array<string>>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
 
   useEffect(() => {
     setAnswers([]);
@@ -60,12 +61,6 @@ const Create = () => {
     }
   };
 
-  useEffect(() => {
-    if (dates) {
-      console.log(getSingleDateString(dates?.to));
-    }
-  }, [dates]);
-
   const getGameObject = () => {
     return {
       id: `${getSingleDateString(dates?.from)}-${getSingleDateString(
@@ -81,13 +76,12 @@ const Create = () => {
   };
 
   const saveGame = async () => {
-    // TODO: save game to firebase
-    // document id will be date string
-    // if game already exists for that day, set error message
     try {
-      await axios.post("http://localhost:8888/create", getGameObject());
+      const response = await axios.post("http://localhost:8888/create", getGameObject());
       setErrorMessage("");
+      setSuccessMessage(response.data.message)
     } catch (e: any) {
+      setSuccessMessage("")
       setErrorMessage(e.response.data.error);
     }
   };
@@ -201,6 +195,9 @@ const Create = () => {
               )}
             </div>
           </div>
+          {successMessage && (
+            <p className="success-message submit-success">{successMessage}</p>
+          )}
           {errorMessage && (
             <p className="error-message submit-error">{errorMessage}</p>
           )}

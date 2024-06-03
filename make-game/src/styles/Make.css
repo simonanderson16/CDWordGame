@@ -110,7 +110,18 @@
   width: fit-content;
 }
 
-.submit-error {
+.success-message {
+  color: #52aa0b;
+  font-size: 0.8rem;
+  margin-top: 10px;
+  background-color: rgb(226, 250, 209);
+  padding: 5px;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.submit-error,
+.submit-success {
   margin-left: 5px;
   margin-right: 5px;
   margin-bottom: 5px;

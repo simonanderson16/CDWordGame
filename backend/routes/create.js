@@ -41,11 +41,9 @@ router.post("/", async (req, res) => {
   } else {
     // no overlap found, add game to database
     await setDoc(doc(db, "games", id), data);
-    res
-      .status(200)
-      .json({
-        message: `Game for ${fromDate} - ${toDate} created successfully`,
-      });
+    res.status(200).json({
+      message: `Game created successfully!`,
+    });
   }
 });
 
