@@ -18,25 +18,27 @@ import {
   CardDescription,
   CardHeader,
 } from "@/components/ui/card";
+import { DateRange } from "react-day-picker";
 import "../styles/Make.css";
 
 const DateSelect = ({
-  date,
-  setDate,
+  dates,
+  setDates,
 }: {
-  date: Date | undefined;
-  setDate: (date: Date | undefined) => void;
+  dates: DateRange | undefined;
+  setDates: (dates: DateRange | undefined) => void;
 }) => {
-  const [currentSelection, setCurrentSelection] = useState<Date | undefined>(
-    date || undefined
-  );
+  const [currentSelection, setCurrentSelection] = useState<
+    DateRange | undefined
+  >(dates || undefined);
 
   return (
     <Card>
       <CardHeader>
         <CardDescription>
-          <strong>Select</strong> the date on which you would like the game to
-          be released.
+          <strong>Select</strong> the dates for which you like the game to be
+          available. The start date will be the day the game is released, and
+          the end date will be the last day the game is available to play.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -44,31 +46,41 @@ const DateSelect = ({
           <Popover>
             <PopoverTrigger asChild>
               <Button
+                id="date"
                 variant={"outline"}
                 className={cn(
-                  "w-[240px] justify-start text-left font-normal",
+                  "w-[300px] justify-start text-left font-normal",
                   !currentSelection && "text-muted-foreground"
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
-                {currentSelection ? (
-                  format(currentSelection, "PPP")
+                {currentSelection?.from ? (
+                  currentSelection.to ? (
+                    <>
+                      {format(currentSelection.from, "LLL dd, y")} -{" "}
+                      {format(currentSelection.to, "LLL dd, y")}
+                    </>
+                  ) : (
+                    format(currentSelection.from, "LLL dd, y")
+                  )
                 ) : (
-                  <span>Pick a date</span>
+                  <span>Pick start and end dates</span>
                 )}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
               <Calendar
-                mode="single"
+                initialFocus
+                mode="range"
+                defaultMonth={currentSelection?.from}
                 selected={currentSelection}
                 onSelect={setCurrentSelection}
-                initialFocus
+                numberOfMonths={2}
               />
             </PopoverContent>
           </Popover>
           <Button
-            onClick={() => setDate(currentSelection)}
+            onClick={() => setDates(currentSelection)}
             disabled={!currentSelection}
           >
             Confirm

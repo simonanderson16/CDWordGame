@@ -1,8 +1,5 @@
 Make Game
-- make it so each game has a start and end date
-    - change date picker to range
-    - update database to make document id reflect BOTH dates
-    - update database to include start and end dates within document (useful for querying later)
+- add a success message when game is created successfully
 - programatically control which tab user is on
 - make summary boxes take you to corresponding tab when clicked
 - look into OED or other dictionary API

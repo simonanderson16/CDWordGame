@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DateSelect from "./DateSelect.js";
 import RequiredSelect from "./RequiredSelect.js";
-import { format } from "date-fns";
+import { format, getDate } from "date-fns";
 import AvailableSelect from "./AvailableSelect.js";
 import "../styles/Make.css";
 import { HomeIcon, TrashIcon } from "@radix-ui/react-icons";
@@ -20,10 +20,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { DateRange } from "react-day-picker";
 import axios from "axios";
 
 const Create = () => {
-  const [date, setDate] = useState<Date>();
+  const [dates, setDates] = useState<DateRange | undefined>();
   const [requiredLetter, setRequiredLetter] = useState<string>("");
   const [availableLetters, setAvailableLetters] = useState<Array<string>>([]);
   const [answers, setAnswers] = useState<Array<string>>([]);
@@ -34,7 +35,7 @@ const Create = () => {
   }, [availableLetters]);
 
   const clear = () => {
-    setDate(undefined);
+    setDates(undefined);
     setRequiredLetter("");
     setAvailableLetters([]);
     setAnswers([]);
@@ -49,7 +50,7 @@ const Create = () => {
     });
   };
 
-  const getDateString = () => {
+  const getSingleDateString = (date: Date | undefined) => {
     if (date) {
       return `${
         date?.getMonth() + 1
@@ -59,10 +60,19 @@ const Create = () => {
     }
   };
 
+  useEffect(() => {
+    if (dates) {
+      console.log(getSingleDateString(dates?.to));
+    }
+  }, [dates]);
+
   const getGameObject = () => {
     return {
-      date: getDateString(),
+      id: `${getSingleDateString(dates?.from)}-${getSingleDateString(
+        dates?.to
+      )}`,
       data: {
+        dates,
         requiredLetter,
         availableLetters,
         answers,
@@ -91,26 +101,26 @@ const Create = () => {
           Home
         </Button>
       </Link>
-      <Tabs defaultValue="date" className="tabs mb-5">
+      <Tabs defaultValue="dates" className="tabs mb-5">
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="date">1. Date</TabsTrigger>
-          <TabsTrigger value="required" disabled={!date}>
+          <TabsTrigger value="dates">1. Dates</TabsTrigger>
+          <TabsTrigger value="required" disabled={!dates}>
             2. Required Letter
           </TabsTrigger>
-          <TabsTrigger value="available" disabled={!date || !requiredLetter}>
+          <TabsTrigger value="available" disabled={!dates || !requiredLetter}>
             3. Additional Letters
           </TabsTrigger>
           <TabsTrigger
             value="answers"
             disabled={
-              !date || !requiredLetter || !(availableLetters.length === 6)
+              !dates || !requiredLetter || !(availableLetters.length === 6)
             }
           >
             4. Answers
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="date">
-          <DateSelect date={date} setDate={setDate} />
+        <TabsContent value="dates">
+          <DateSelect dates={dates} setDates={setDates} />
         </TabsContent>
         <TabsContent value="required">
           <RequiredSelect
@@ -147,9 +157,14 @@ const Create = () => {
         <CardContent>
           <div className="summary-grid">
             <div className="summary-item">
-              <p className="summary-label">Date</p>
+              <p className="summary-label">Dates</p>
               <p className="summary-value">
-                {date ? format(date, "PPP") : "Not yet selected"}
+                {dates
+                  ? `${format(dates.from, "LLL dd, y")} - ${format(
+                      dates.to,
+                      "LLL dd, y"
+                    )}`
+                  : "Not yet selected"}
               </p>
             </div>
             <div className="summary-item">
@@ -193,7 +208,7 @@ const Create = () => {
             <Button
               className="summary-button"
               disabled={
-                !date ||
+                !dates ||
                 !requiredLetter ||
                 availableLetters.length != 6 ||
                 answers.length === 0
@@ -204,7 +219,7 @@ const Create = () => {
             </Button>
             <Button
               disabled={
-                !date && !requiredLetter && availableLetters.length != 6
+                !dates && !requiredLetter && availableLetters.length != 6
               }
               variant="destructive"
               onClick={() => clear()}
