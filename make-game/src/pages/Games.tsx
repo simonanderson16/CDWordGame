@@ -12,7 +12,7 @@ import "../styles/Games.css";
 const Games = () => {
   return (
     <div className="games-container">
-      <h1 className="header">All Games</h1>
+      <h1 className="header">Hoos Spelling: All Games</h1>
       <Link to="/">
         <Button className="home-button">
           <HomeIcon className="mr-2 h-4 w-4" />
