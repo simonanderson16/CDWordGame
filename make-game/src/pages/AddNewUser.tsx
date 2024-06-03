@@ -19,8 +19,10 @@ const AddNewUser = () => {
         email,
         password
       );
-      console.log(response);
+      setErrorMessage("");
+      setSuccessMessage("Successfully created account for " + email);
     } catch (error: any) {
+      setSuccessMessage("");
       setErrorMessage(error.message);
     }
   };
@@ -56,6 +58,7 @@ const AddNewUser = () => {
         <Button type="submit">Create User</Button>
       </form>
       {errorMessage && <p className="error-msg">{errorMessage}</p>}
+      {successMessage && <p className="success-msg">{successMessage}</p>}
     </div>
   );
 };
