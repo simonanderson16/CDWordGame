@@ -1,5 +1,4 @@
 Make Game
-- add a success message when game is created successfully
-- programatically control which tab user is on
-- make summary boxes take you to corresponding tab when clicked
+- display backend error messages (i.e. firebase errors)
 - look into OED or other dictionary API
+

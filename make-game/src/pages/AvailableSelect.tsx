@@ -11,10 +11,14 @@ const AvailableSelect = ({
   requiredLetter,
   availableLetters,
   setAvailableLetters,
+  setTab,
+  setAnswers
 }: {
   requiredLetter: string;
   availableLetters: Array<string>;
   setAvailableLetters: (availableLetters: Array<string>) => void;
+  setTab: (tab: string) => void;
+  setAnswers: (answers: Array<string>) => void
 }) => {
   const [currentSelection, setCurrentSelection] =
     useState<Array<string>>(availableLetters);
@@ -50,6 +54,8 @@ const AvailableSelect = ({
     if (!currentSelection.includes(requiredLetter)) {
       setErrorMessage("");
       setAvailableLetters(currentSelection);
+      setAnswers([])
+      setTab("answers");
     } else {
       setErrorMessage("Can not include the required letter in this selection.");
     }

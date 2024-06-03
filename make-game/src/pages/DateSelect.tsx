@@ -24,9 +24,11 @@ import "../styles/Make.css";
 const DateSelect = ({
   dates,
   setDates,
+  setTab,
 }: {
   dates: DateRange | undefined;
   setDates: (dates: DateRange | undefined) => void;
+  setTab: (tab: string) => void;
 }) => {
   const [currentSelection, setCurrentSelection] = useState<
     DateRange | undefined
@@ -80,8 +82,11 @@ const DateSelect = ({
             </PopoverContent>
           </Popover>
           <Button
-            onClick={() => setDates(currentSelection)}
-            disabled={!currentSelection}
+            onClick={() => {
+              setDates(currentSelection);
+              setTab("required");
+            }}
+            disabled={!currentSelection?.from || !currentSelection?.to}
           >
             Confirm
           </Button>

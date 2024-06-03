@@ -98,7 +98,12 @@ const AnswerSelect = ({
           )}
           <div className="card-row-between mt-3">
             <p>Total words: {currentSelection.length}</p>
-            <Button onClick={() => setAnswers(currentSelection)}>
+            <Button
+              onClick={() => {
+                setAnswers(currentSelection);
+                setErrorMessage("");
+              }}
+            >
               Confirm
             </Button>
           </div>

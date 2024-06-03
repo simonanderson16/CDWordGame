@@ -11,10 +11,12 @@ const RequiredSelect = ({
   requiredLetter,
   setRequiredLetter,
   availableLetters,
+  setTab,
 }: {
   requiredLetter: string;
   setRequiredLetter: (requiredLetter: string) => void;
   availableLetters: Array<string>;
+  setTab: (tab: string) => void
 }) => {
   const [currentSelection, setCurrentSelection] = useState<string>(
     requiredLetter || ""
@@ -41,6 +43,7 @@ const RequiredSelect = ({
     if (!availableLetters.includes(currentSelection)) {
       setErrorMessage("");
       setRequiredLetter(currentSelection);
+      setTab("available")
     } else {
       setErrorMessage(
         "Required letter can not be one of the other available letters."

@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DateSelect from "./DateSelect.js";
 import RequiredSelect from "./RequiredSelect.js";
-import { format, getDate } from "date-fns";
+import { format } from "date-fns";
 import AvailableSelect from "./AvailableSelect.js";
 import "../styles/Make.css";
-import { HomeIcon, TrashIcon } from "@radix-ui/react-icons";
+import { HomeIcon, TrashIcon, Pencil2Icon } from "@radix-ui/react-icons";
 import {
   Card,
   CardContent,
@@ -30,10 +30,15 @@ const Create = () => {
   const [answers, setAnswers] = useState<Array<string>>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
+  const [tab, setTab] = useState<string>("dates");
 
   useEffect(() => {
     setAnswers([]);
-  }, [availableLetters]);
+  }, [availableLetters, requiredLetter]);
+
+  const onTabChange = (value: string) => {
+    setTab(value);
+  };
 
   const clear = () => {
     setDates(undefined);
@@ -77,11 +82,14 @@ const Create = () => {
 
   const saveGame = async () => {
     try {
-      const response = await axios.post("http://localhost:8888/create", getGameObject());
+      const response = await axios.post(
+        "http://localhost:8888/create",
+        getGameObject()
+      );
       setErrorMessage("");
-      setSuccessMessage(response.data.message)
+      setSuccessMessage(response.data.message);
     } catch (e: any) {
-      setSuccessMessage("")
+      setSuccessMessage("");
       setErrorMessage(e.response.data.error);
     }
   };
@@ -95,7 +103,12 @@ const Create = () => {
           Home
         </Button>
       </Link>
-      <Tabs defaultValue="dates" className="tabs mb-5">
+      <Tabs
+        defaultValue="dates"
+        className="tabs mb-5"
+        value={tab}
+        onValueChange={onTabChange}
+      >
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="dates">1. Dates</TabsTrigger>
           <TabsTrigger value="required" disabled={!dates}>
@@ -114,13 +127,14 @@ const Create = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="dates">
-          <DateSelect dates={dates} setDates={setDates} />
+          <DateSelect dates={dates} setDates={setDates} setTab={setTab} />
         </TabsContent>
         <TabsContent value="required">
           <RequiredSelect
             requiredLetter={requiredLetter}
             setRequiredLetter={setRequiredLetter}
             availableLetters={availableLetters}
+            setTab={setTab}
           />
         </TabsContent>
         <TabsContent value="available">
@@ -128,6 +142,8 @@ const Create = () => {
             requiredLetter={requiredLetter}
             availableLetters={availableLetters}
             setAvailableLetters={setAvailableLetters}
+            setTab={setTab}
+            setAnswers={setAnswers}
           />
         </TabsContent>
         <TabsContent value="answers">
@@ -152,28 +168,42 @@ const Create = () => {
           <div className="summary-grid">
             <div className="summary-item">
               <p className="summary-label">Dates</p>
-              <p className="summary-value">
-                {dates
-                  ? `${format(dates.from, "LLL dd, y")} - ${format(
-                      dates.to,
-                      "LLL dd, y"
-                    )}`
-                  : "Not yet selected"}
-              </p>
+              {dates ? (
+                <>
+                  <Button variant="outline" onClick={() => setTab("dates")}>
+                    {format(dates.from, "LLL dd, y")} -{" "}
+                    {format(dates.to, "LLL dd, y")}
+                  </Button>
+                </>
+              ) : (
+                <Button variant="outline" disabled>
+                  Not yet selected
+                </Button>
+              )}
             </div>
             <div className="summary-item">
               <p className="summary-label">Required Letter</p>
-              <p className="summary-value">
-                {requiredLetter || "Not yet selected"}
-              </p>
+              {requiredLetter ? (
+                <Button variant="outline" onClick={() => setTab("required")}>
+                  {requiredLetter}
+                </Button>
+              ) : (
+                <Button variant="outline" disabled>
+                  Not yet selected
+                </Button>
+              )}
             </div>
             <div className="summary-item">
               <p className="summary-label">Additional Letters</p>
-              <p className="summary-value">
-                {availableLetters.length === 6
-                  ? availableLetters.join(" ")
-                  : "Not yet selected"}
-              </p>
+              {availableLetters.length === 6 ? (
+                <Button variant="outline" onClick={() => setTab("available")}>
+                  {availableLetters.join(" ")}
+                </Button>
+              ) : (
+                <Button variant="outline" disabled>
+                  Not yet selected
+                </Button>
+              )}
             </div>
             <div className="summary-item">
               <p className="summary-label">Answers</p>
@@ -188,10 +218,23 @@ const Create = () => {
                     {sortAnswers().map((answer, index) => (
                       <p key={index}>{answer}</p>
                     ))}
+                    <Button
+                      style={{
+                        position: "absolute",
+                        bottom: "5px",
+                        right: "5px",
+                      }}
+                      variant="ghost"
+                      onClick={() => setTab("answers")}
+                    >
+                      <Pencil2Icon />
+                    </Button>
                   </PopoverContent>
                 </Popover>
               ) : (
-                <p className="summary-value">Not yet selected</p>
+                <Button variant="outline" disabled>
+                  Not yet selected
+                </Button>
               )}
             </div>
           </div>
