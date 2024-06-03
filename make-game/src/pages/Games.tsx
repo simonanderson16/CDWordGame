@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,8 +9,21 @@ import {
 } from "@/components/ui/card";
 import { HomeIcon } from "@radix-ui/react-icons";
 import "../styles/Games.css";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase.js";
 
 const Games = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
   return (
     <div className="games-container">
       <h1 className="header">Hoos Spelling: All Games</h1>

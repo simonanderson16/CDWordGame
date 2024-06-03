@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,6 +9,9 @@ import { HomeIcon } from "@radix-ui/react-icons";
 import AnswerSelect from "./AnswerSelect.js";
 import { DateRange } from "react-day-picker";
 import SummaryCard from "./SummaryCard.js";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase.js";
+
 import "../styles/Create.css";
 
 const Create = () => {
@@ -17,6 +20,18 @@ const Create = () => {
   const [availableLetters, setAvailableLetters] = useState<Array<string>>([]);
   const [answers, setAnswers] = useState<Array<string>>([]);
   const [tab, setTab] = useState<string>("dates");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
 
   useEffect(() => {
     setAnswers([]);
@@ -103,13 +118,3 @@ const Create = () => {
 };
 
 export default Create;
-
-/* 
-
-TODO: 
-
-don't allow date for which there is already a game 
-make it so clearing takes you back to date tab
-add tab for creating all answers
-
-*/
