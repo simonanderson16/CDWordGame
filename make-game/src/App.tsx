@@ -1,6 +1,6 @@
 import Home from "./pages/Home";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase.js";
+import { auth } from "../firebase.ts";
 import { useEffect, useState } from "react";
 import Login from "./pages/Login.js";
 

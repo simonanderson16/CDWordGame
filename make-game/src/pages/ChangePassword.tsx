@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { auth } from "../../firebase.js";
+import { auth } from "../../firebase.ts";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
 import "../styles/Home.css";
 
 const ChangePassword = () => {
-  const email = auth.currentUser.email;
+  const email = auth.currentUser?.email;
   const [successMessage, setSuccessMessage] = useState<string>("");
 
   const sendResetEmail = async () => {
