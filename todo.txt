@@ -1,8 +1,9 @@
+- add instructions to play page
+- change to cav daily colors
+- color code letters as they are typed (or only type allowed letters)
 - shadcn scroll-area on make-game site
 - change letter grid from buttons to divs (avoid keyboard focus)
     - and make them bigger
-- add instructions to play page
-- color code letters as they are typed (or only type allowed letters)
 - make sure backend never crashes (add try-catch blocks)
 - refactor backend calls (store base url in a variable)
 - edit future games

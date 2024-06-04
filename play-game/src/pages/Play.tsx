@@ -9,6 +9,7 @@ import {
   SymbolIcon,
   ArrowLeftIcon,
   ArrowUpIcon,
+  FaceIcon,
 } from "@radix-ui/react-icons";
 import LoadingIcons from "react-loading-icons";
 import axios from "axios";
@@ -210,7 +211,9 @@ const Play = () => {
               )}
             </Button>
           ) : (
-            <p>No game today</p>
+            <p className="flex items-center gap-2 border p-3 rounded">
+              No game today, come back soon <FaceIcon />
+            </p>
           )}
         </>
       )}
