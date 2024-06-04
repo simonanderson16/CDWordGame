@@ -14,11 +14,7 @@ const AddNewUser = () => {
   const createUser = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      await createUserWithEmailAndPassword(auth, email, password);
       setErrorMessage("");
       setSuccessMessage("Successfully created account for " + email);
     } catch (error: any) {
@@ -29,7 +25,7 @@ const AddNewUser = () => {
 
   return (
     <div>
-      <h1 className="font-bold text-xl">Add a New User?</h1>
+      <h1 className="font-bold text-xl">Add a New Admin?</h1>
       <p className="mb-5 mt-5">
         The user will be added as a Hoos Spelling admin and obtain game
         management and user management permissions.
@@ -55,7 +51,7 @@ const AddNewUser = () => {
           required
           onChange={(e) => setPassword(e.target.value)}
         ></Input>
-        <Button type="submit">Create User</Button>
+        <Button type="submit">Create Admin</Button>
       </form>
       {errorMessage && <p className="error-msg">{errorMessage}</p>}
       {successMessage && <p className="success-msg">{successMessage}</p>}
