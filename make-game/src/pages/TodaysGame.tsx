@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Game } from "../types.ts";
 
-const TodaysGame = ({ allGames }: { allGames: Array<Object> }) => {
-  const [todaysGame, setTodaysGame] = useState<Object>();
+const TodaysGame = ({ allGames }: { allGames: Game[] }) => {
+  const [todaysGame, setTodaysGame] = useState<Game>();
 
   useEffect(() => {
     const today = new Date();
@@ -22,6 +23,7 @@ const TodaysGame = ({ allGames }: { allGames: Array<Object> }) => {
     <div>
       {todaysGame ? (
         <div>
+          <h2 className="white-box">{todaysGame.plays} Total Plays</h2>
           <div className="today-grid">
             <div className="grid-item-1 grid-item">
               <p className="font-bold">Available Until</p>

@@ -14,11 +14,15 @@ import { auth } from "../../firebase.js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axios from "axios";
 import TodaysGame from "./TodaysGame.js";
+import PastGames from "./PastGames.js";
+import { Game } from "../types.ts";
+import FutureGames from "./FutureGames.tsx";
 
 const Games = () => {
   const navigate = useNavigate();
   const [tab, setTab] = useState<string>("today");
-  const [allGames, setAllGames] = useState<Array<Object>>([]);
+  const [allGames, setAllGames] = useState<Game[]>([]);
+  const [totalPlays, setTotalPlays] = useState<number>(0);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -33,9 +37,16 @@ const Games = () => {
     setTab(value);
   };
 
+  const findTotalPlays = (games: Game[]) => {
+    let sum = 0;
+    games.forEach((game) => (sum += game.plays));
+    setTotalPlays(sum);
+  };
+
   const getAllGames = async () => {
     const response = await axios.get("http://localhost:8888/create");
     setAllGames(response.data);
+    findTotalPlays(response.data);
   };
 
   useEffect(() => {
@@ -44,7 +55,8 @@ const Games = () => {
 
   return (
     <div className="games-container">
-      <h1 className="header">Hoos Spelling: All Games</h1>
+      <h1 className="games-header">Hoos Spelling: All Games</h1>
+      <h2 className="games-subheader white-box mb-3">{totalPlays} All-Time Plays</h2>
       <Link to="/">
         <Button className="home-button">
           <HomeIcon className="mr-2 h-4 w-4" />
@@ -63,14 +75,16 @@ const Games = () => {
           <TabsTrigger value="future">Future Games</TabsTrigger>
         </TabsList>
         <TabsContent value="past">
-          <Card className="games-card">
+          <Card className="games-card scrollable-card">
             <CardHeader>
               <CardDescription>
                 All of the following games have already ended. You can delete
                 each one you would no longer like to store.
               </CardDescription>
             </CardHeader>
-            <CardContent>content</CardContent>
+            <CardContent>
+              <PastGames allGames={allGames} getAllGames={getAllGames} />
+            </CardContent>
           </Card>
         </TabsContent>
         <TabsContent value="today">
@@ -87,14 +101,16 @@ const Games = () => {
           </Card>
         </TabsContent>
         <TabsContent value="future">
-          <Card className="games-card">
+          <Card className="games-card scrollable-card">
             <CardHeader>
               <CardDescription>
                 All of the following games have been created but not yet
-                released. You can edit or delete any of these games.
+                released. You can delete any of these games.
               </CardDescription>
             </CardHeader>
-            <CardContent>content</CardContent>
+            <CardContent>
+              <FutureGames allGames={allGames} getAllGames={getAllGames} />
+            </CardContent>
           </Card>
         </TabsContent>
       </Tabs>

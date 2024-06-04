@@ -77,6 +77,7 @@ const SummaryCard = ({
         requiredLetter,
         availableLetters,
         answers,
+        plays: 0
       },
     };
   };

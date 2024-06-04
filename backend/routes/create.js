@@ -6,8 +6,7 @@ const {
   doc,
   setDoc,
   getDocs,
-  query,
-  where,
+  deleteDoc,
   collection,
 } = require("firebase/firestore");
 
@@ -62,6 +61,22 @@ router.get("/", async (req, res) => {
   } catch (error) {
     res.status(500).json({
       error: "Failed to retrieve games. Please try again later.",
+    });
+  }
+});
+
+// delete a game
+router.delete("/:id", async (req, res) => {
+  const gameId = req.params.id;
+  try {
+    const gameRef = doc(db, "games", gameId);
+    await deleteDoc(gameRef);
+    res.status(200).json({
+      message: `Game with id ${gameId} deleted successfully.`,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "Failed to delete the game. Please try again later.",
     });
   }
 });
