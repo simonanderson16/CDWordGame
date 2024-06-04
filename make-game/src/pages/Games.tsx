@@ -10,7 +10,7 @@ import {
 import { HomeIcon } from "@radix-ui/react-icons";
 import "../styles/Games.css";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase.js";
+import { auth } from "../../firebase.ts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axios from "axios";
 import TodaysGame from "./TodaysGame.js";

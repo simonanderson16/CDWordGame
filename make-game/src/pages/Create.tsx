@@ -10,7 +10,7 @@ import AnswerSelect from "./AnswerSelect.js";
 import { DateRange } from "react-day-picker";
 import SummaryCard from "./SummaryCard.js";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase.js";
+import { auth } from "../../firebase.ts";
 
 import "../styles/Create.css";
 

@@ -14,7 +14,7 @@ import {
   PersonIcon,
 } from "@radix-ui/react-icons";
 
-import { auth } from "../../firebase.js";
+import { auth } from "../../firebase.ts";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
 import "../styles/Home.css";
@@ -65,7 +65,7 @@ const Home = () => {
         <h2 className="card-header">User Management</h2>
         <p>Currently signed in as:</p>
         <Badge variant="outline" className="mb-3">
-          {auth.currentUser.email}
+          {auth.currentUser?.email || "N/A"}
         </Badge>
         <Dialog>
           <DialogTrigger asChild>
