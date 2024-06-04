@@ -1,0 +1,181 @@
+.play-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.play-inner-container {
+  display: flex;
+  width: 60%;
+  justify-content: center;
+  gap: 10px;
+  height: 60%;
+}
+
+.play-button {
+  min-width: 180px;
+}
+
+.loading {
+  max-width: 50px;
+  margin: 0 20px;
+}
+
+.play-half-1,
+.play-half-2 {
+  border: 1px solid #e2e8f0;
+  width: 50%;
+  height: 100%;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 450px;
+}
+
+.input-area {
+  width: 100%;
+  position: relative;
+}
+
+.input-box {
+  border: 1px solid #e2e8f0;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  justify-content: center;
+  min-height: 3.75rem;
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  width: 100%;
+}
+
+.input-text {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.input-error {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: fit-content;
+  transform: translate(-50%, 50%);
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgb(15 23 42);
+  }
+}
+
+.cursor {
+  background-color: rgb(15 23 42);
+  width: 2px;
+  height: 1.5rem;
+  animation: blink 1s infinite;
+}
+
+.letters {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  min-width: 200px;
+}
+
+.required-letter {
+  grid-area: 3 / 3 / 5 / 5;
+}
+.letter-0 {
+  grid-area: 1 / 2 / 3 / 4;
+}
+.letter-1 {
+  grid-area: 1 / 4 / 3 / 6;
+}
+.letter-2 {
+  grid-area: 3 / 5 / 5 / 7;
+}
+.letter-3 {
+  grid-area: 5 / 4 / 7 / 6;
+}
+.letter-4 {
+  grid-area: 5 / 2 / 7 / 4;
+}
+.letter-5 {
+  grid-area: 3 / 1 / 5 / 3;
+}
+
+.game-controls {
+  display: flex;
+  gap: 5px;
+}
+
+.found-words-header {
+  font-weight: bold;
+  font-size: 1.125rem;
+}
+
+.found-words {
+  text-align: center;
+}
+
+.divider {
+  width: 100%;
+  background-color: #e2e8f0;
+  height: 1px;
+  margin: 5px 0;
+}
+
+@media (max-width: 950px) {
+  .play-container {
+    height: 100%;
+  }
+
+  .play-inner-container {
+    flex-direction: column;
+    width: 95%;
+    height: 80%;
+    margin-top: 20px;
+    padding: 0 10px;
+  }
+
+  .header {
+    margin-bottom: 10px;
+  }
+
+  .play-half-1 {
+    width: 100%;
+    min-height: 350px;
+    min-width: 0;
+  }
+
+  .play-half-2 {
+    width: 100%;
+    min-height: 200px;
+    min-width: 0;
+  }
+
+  .input-text {
+    font-size: 1.25rem;
+  }
+}
