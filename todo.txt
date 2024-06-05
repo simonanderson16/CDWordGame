@@ -1,6 +1,5 @@
 - add instructions to play page
-- change to cav daily colors
-- color code letters as they are typed (or only type allowed letters)
+- add high score field on each game
 - shadcn scroll-area on make-game site
     - horizontal scrolls
     - past games and futire games

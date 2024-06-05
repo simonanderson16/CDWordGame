@@ -1,6 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import "../styles/Play.css";
 import { useEffect, useState } from "react";
 import { Game } from "@/types";
@@ -10,6 +24,7 @@ import {
   ArrowLeftIcon,
   ArrowUpIcon,
   FaceIcon,
+  QuestionMarkCircledIcon,
 } from "@radix-ui/react-icons";
 import LoadingIcons from "react-loading-icons";
 import axios from "axios";
@@ -127,6 +142,19 @@ const Play = () => {
   return (
     <div className="play-container">
       <h1 className="header">Hoos Spelling</h1>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="instructions-button">
+            <QuestionMarkCircledIcon />
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Instructions</DialogTitle>
+            <DialogDescription>Instructions will go here</DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
       {game && playing ? (
         <div className="play-inner-container">
           <div className="play-half-1">
@@ -155,7 +183,7 @@ const Play = () => {
             <div className="letters">
               <Button
                 onClick={() => handleLetterPress(game.requiredLetter)}
-                className="required-letter h-full text-xl"
+                className="required-letter h-full text-2xl"
               >
                 {game.requiredLetter}
               </Button>
@@ -164,7 +192,7 @@ const Play = () => {
                   onClick={() => handleLetterPress(letter)}
                   variant="outline"
                   key={index}
-                  className={`letter-${index} h-full text-xl`}
+                  className={`letter-${index} h-full text-2xl`}
                 >
                   {letter}
                 </Button>
