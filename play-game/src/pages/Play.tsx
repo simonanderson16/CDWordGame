@@ -18,7 +18,6 @@ import {
   ArrowLeftIcon,
   ArrowUpIcon,
   FaceIcon,
-  QuestionMarkCircledIcon,
   InfoCircledIcon,
 } from "@radix-ui/react-icons";
 import LoadingIcons from "react-loading-icons";
