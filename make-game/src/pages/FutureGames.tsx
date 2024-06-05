@@ -48,7 +48,7 @@ const FutureGames = ({
   };
 
   const deleteGame = async (id: string) => {
-    await axios.delete(`http://localhost:8888/create/${id}`);
+    await axios.delete(`${import.meta.env.VITE_SERVER_URL}/create/${id}`);
     getAllGames();
     setOpenDialogId(null);
   };

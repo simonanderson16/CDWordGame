@@ -9,12 +9,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import "../styles/Play.css";
 import { useEffect, useState } from "react";
 import { Game } from "@/types";
@@ -25,6 +19,7 @@ import {
   ArrowUpIcon,
   FaceIcon,
   QuestionMarkCircledIcon,
+  InfoCircledIcon,
 } from "@radix-ui/react-icons";
 import LoadingIcons from "react-loading-icons";
 import axios from "axios";
@@ -41,7 +36,7 @@ const Play = () => {
   const [foundWords, setFoundWords] = useState<string[]>([]);
 
   const fetchTodaysGame = async () => {
-    const response = await axios.get("http://localhost:8888/play");
+    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/play`);
     if (response.data.length > 0) {
       setGame(response.data[0]);
       setGameExists(true);
@@ -53,7 +48,7 @@ const Play = () => {
 
   const handlePlayGame = async () => {
     setPlaying(true);
-    await axios.put("http://localhost:8888/play", {
+    await axios.put(`${import.meta.env.VITE_SERVER_URL}/play`, {
       id: game?.id,
       currentPlays: game?.plays,
     });
@@ -142,19 +137,40 @@ const Play = () => {
   return (
     <div className="play-container">
       <h1 className="header">Hoos Spelling</h1>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button className="instructions-button">
-            <QuestionMarkCircledIcon />
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Instructions</DialogTitle>
-            <DialogDescription>Instructions will go here</DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      <div className="top-right">
+        <img className="cd-logo" src="./cdLogo.png" />
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="instructions-button">
+              <InfoCircledIcon />
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Instructions</DialogTitle>
+              <DialogDescription>
+                <p className="rules">
+                  Always using the center letter, make as many words as possible
+                  from the letters provided. Repeated letters are allowed. The
+                  words must be four or more letters long. No proper nouns,
+                  slang, epithets or slurs are permitted.
+                </p>
+                <p className="credits-header">Credits</p>
+                <p className="instructions-byline">
+                  Created by{" "}
+                  <a
+                    className="linkedin-link text-primary"
+                    href="https://www.linkedin.com/in/simonanderson16/"
+                    target="_blank"
+                  >
+                    Simon Anderson
+                  </a>
+                </p>
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      </div>
       {game && playing ? (
         <div className="play-inner-container">
           <div className="play-half-1">
@@ -257,6 +273,7 @@ const Play = () => {
               No game today, come back soon <FaceIcon />
             </p>
           )}
+          <p className="credits text-xs">Based on the NYT Spelling Bee</p>
         </>
       )}
     </div>

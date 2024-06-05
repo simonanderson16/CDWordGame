@@ -85,7 +85,7 @@ const SummaryCard = ({
   const saveGame = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8888/create",
+        `${import.meta.env.VITE_SERVER_URL}/create`,
         getGameObject()
       );
       setErrorMessage("");

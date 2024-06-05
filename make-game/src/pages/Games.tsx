@@ -44,7 +44,7 @@ const Games = () => {
   };
 
   const getAllGames = async () => {
-    const response = await axios.get("http://localhost:8888/create");
+    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/create`);
     setAllGames(response.data);
     findTotalPlays(response.data);
   };
