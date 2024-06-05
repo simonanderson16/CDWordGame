@@ -2,6 +2,9 @@
 - change to cav daily colors
 - color code letters as they are typed (or only type allowed letters)
 - shadcn scroll-area on make-game site
+    - horizontal scrolls
+    - past games and futire games
+    - make game screen - view all answers popover
 - change letter grid from buttons to divs (avoid keyboard focus)
     - and make them bigger
 - make sure backend never crashes (add try-catch blocks)

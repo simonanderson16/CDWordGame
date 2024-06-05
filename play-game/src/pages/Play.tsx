@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import "../styles/Play.css";
 import { useEffect, useState } from "react";
 import { Game } from "@/types";
@@ -132,7 +132,20 @@ const Play = () => {
           <div className="play-half-1">
             <div className="input-area">
               <div className="input-box">
-                <h2 className="input-text">{input}</h2>
+                {input.split("").map((char, index) => (
+                  <span
+                    key={index}
+                    className={
+                      char === game.requiredLetter
+                        ? "text-primary input-text"
+                        : game.availableLetters.includes(char)
+                        ? "input-text"
+                        : "text-gray-400 input-text"
+                    }
+                  >
+                    {char}
+                  </span>
+                ))}
                 <div className="cursor"></div>
               </div>
               {inputError && (
@@ -142,7 +155,7 @@ const Play = () => {
             <div className="letters">
               <Button
                 onClick={() => handleLetterPress(game.requiredLetter)}
-                className="required-letter"
+                className="required-letter h-full text-xl"
               >
                 {game.requiredLetter}
               </Button>
@@ -151,7 +164,7 @@ const Play = () => {
                   onClick={() => handleLetterPress(letter)}
                   variant="outline"
                   key={index}
-                  className={`letter-${index}`}
+                  className={`letter-${index} h-full text-xl`}
                 >
                   {letter}
                 </Button>
@@ -174,15 +187,16 @@ const Play = () => {
           <div className="play-half-2">
             {foundWords.length === 0 ? (
               <h2 className="found-words-header mb-2">
-                You have found 0 words
+                You have found <span className="text-primary">0</span> words
               </h2>
             ) : (
               <div className="w-full h-5/6 text-center">
                 <h2 className="found-words-header mb-2">
-                  You have found {foundWords.length}{" "}
+                  You have found{" "}
+                  <span className="text-primary">{foundWords.length}</span>{" "}
                   {foundWords.length === 1 ? "word" : "words"}
                 </h2>
-                <ScrollArea className="found-words h-full w-full rounded-md border py-2 px-5">
+                <ScrollArea className="found-words h-full w-full rounded-md py-2 px-5">
                   {foundWords.map((word, index) => (
                     <div key={index}>
                       <p className="found-word">{word}</p>
