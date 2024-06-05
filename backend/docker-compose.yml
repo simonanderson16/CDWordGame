@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hoos-spelling-backend:latest
+    container_name: hoos-spelling-backend-container
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 8888:8888
