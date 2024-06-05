@@ -9,7 +9,9 @@ const ChangePassword = () => {
   const [successMessage, setSuccessMessage] = useState<string>("");
 
   const sendResetEmail = async () => {
-    await sendPasswordResetEmail(auth, email);
+    if (email) {
+      await sendPasswordResetEmail(auth, email);
+    }
     setSuccessMessage("Email sent successfully.");
   };
 

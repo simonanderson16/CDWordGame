@@ -1,13 +1,11 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase.ts";
-// import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../styles/Login.css";
 import { Button } from "@/components/ui/button.js";
 import { Input } from "@/components/ui/input.js";
 
 const Login = () => {
-  //   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
