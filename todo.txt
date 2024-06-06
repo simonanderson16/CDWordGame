@@ -1,4 +1,5 @@
 Make game
+ - fix netlify routing refresh error
  - show levels and credits on All Games tabs
  - make answers popup scrollable
  - display a test link on the future game card
