@@ -15,11 +15,13 @@ const AnswerSelect = ({
   availableLetters,
   answers,
   setAnswers,
+  setTab,
 }: {
   requiredLetter: string;
   availableLetters: Array<string>;
   answers: Array<string>;
   setAnswers: (answers: Array<string>) => void;
+  setTab: (tab: string) => void;
 }) => {
   const [currentSelection, setCurrentSelection] = useState<Array<string>>(
     answers || []
@@ -103,6 +105,7 @@ const AnswerSelect = ({
               onClick={() => {
                 setAnswers(currentSelection);
                 setErrorMessage("");
+                setTab("more-info");
               }}
             >
               Confirm

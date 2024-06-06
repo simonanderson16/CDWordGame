@@ -45,6 +45,11 @@
   justify-content: space-between;
 }
 
+.card-row-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .selected-letter {
   display: flex;
   flex-direction: column;

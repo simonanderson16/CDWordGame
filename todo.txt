@@ -1,14 +1,11 @@
 Make game
- - add ability to set and edit levels
- - add ability to add credits
-    - puzzle by
-    - words from
+ - show levels and credits on All Games tabs
  - make answers popup scrollable
  - display a test link on the future game card
+ - edit levels after game has been made
  
  Play game
   - add /test/:id route to test games
-  - display rules on home screen
 
 Backend
 - make sure backend never crashes (add try-catch blocks)

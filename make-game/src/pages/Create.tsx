@@ -11,14 +11,27 @@ import { DateRange } from "react-day-picker";
 import SummaryCard from "./SummaryCard.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase.ts";
+import { Levels, Credits } from "@/types.ts";
 
 import "../styles/Create.css";
+import MoreInfo from "./MoreInfo.tsx";
 
 const Create = () => {
   const [dates, setDates] = useState<DateRange | undefined>();
   const [requiredLetter, setRequiredLetter] = useState<string>("");
   const [availableLetters, setAvailableLetters] = useState<Array<string>>([]);
   const [answers, setAnswers] = useState<Array<string>>([]);
+  const [levels, setLevels] = useState<Levels>({
+    Wa: 4,
+    Wahoo: 8,
+    Wahoowa: 16,
+    WahooWOW: 32,
+    Average: 14,
+  });
+  const [credits, setCredits] = useState<Credits>({
+    puzzle: "",
+    words: "",
+  });
   const [tab, setTab] = useState<string>("dates");
 
   const navigate = useNavigate();
@@ -56,7 +69,7 @@ const Create = () => {
         value={tab}
         onValueChange={onTabChange}
       >
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="dates">1. Dates</TabsTrigger>
           <TabsTrigger value="required" disabled={!dates}>
             2. Required Letter
@@ -71,6 +84,17 @@ const Create = () => {
             }
           >
             4. Answers
+          </TabsTrigger>
+          <TabsTrigger
+            value="more-info"
+            disabled={
+              !dates ||
+              !requiredLetter ||
+              !(availableLetters.length === 6) ||
+              answers.length === 0
+            }
+          >
+            5. More Info
           </TabsTrigger>
         </TabsList>
         <TabsContent value="dates">
@@ -99,6 +123,15 @@ const Create = () => {
             availableLetters={availableLetters}
             answers={answers}
             setAnswers={setAnswers}
+            setTab={setTab}
+          />
+        </TabsContent>
+        <TabsContent value="more-info">
+          <MoreInfo
+            levels={levels}
+            setLevels={setLevels}
+            credits={credits}
+            setCredits={setCredits}
           />
         </TabsContent>
       </Tabs>
@@ -111,6 +144,10 @@ const Create = () => {
         setAvailableLetters={setAvailableLetters}
         answers={answers}
         setAnswers={setAnswers}
+        levels={levels}
+        setLevels={setLevels}
+        credits={credits}
+        setCredits={setCredits}
         setTab={setTab}
       />
     </div>

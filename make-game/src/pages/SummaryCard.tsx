@@ -16,6 +16,7 @@ import { TrashIcon, Pencil2Icon } from "@radix-ui/react-icons";
 import { DateRange } from "react-day-picker";
 import axios from "axios";
 import "../styles/Create.css";
+import { Credits, Levels } from "@/types";
 
 const SummaryCard = ({
   dates,
@@ -26,6 +27,10 @@ const SummaryCard = ({
   setAvailableLetters,
   answers,
   setAnswers,
+  levels,
+  setLevels,
+  credits,
+  setCredits,
   setTab,
 }: {
   dates: DateRange | undefined;
@@ -36,6 +41,10 @@ const SummaryCard = ({
   setAvailableLetters: (availableLetters: Array<string>) => void;
   answers: Array<string>;
   setAnswers: (answers: Array<string>) => void;
+  levels: Levels;
+  setLevels: (levels: Levels) => void;
+  credits: Credits;
+  setCredits: (credits: Credits) => void;
   setTab: (tab: string) => void;
 }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -46,6 +55,17 @@ const SummaryCard = ({
     setRequiredLetter("");
     setAvailableLetters([]);
     setAnswers([]);
+    setLevels({
+      Wa: 4,
+      Wahoo: 8,
+      Wahoowa: 16,
+      WahooWOW: 32,
+      Average: 14,
+    });
+    setCredits({
+      puzzle: "",
+      words: "",
+    });
   };
 
   const sortAnswers = () => {
@@ -77,7 +97,9 @@ const SummaryCard = ({
         requiredLetter,
         availableLetters,
         answers,
-        plays: 0
+        levels,
+        credits,
+        plays: 0,
       },
     };
   };
@@ -94,6 +116,18 @@ const SummaryCard = ({
       setSuccessMessage("");
       setErrorMessage(e.response.data.error);
     }
+  };
+
+  const validLevels = (): boolean => {
+    return Object.values(levels).every((value) => value != 0 && value != "");
+  };
+
+  const validCredits = (): boolean => {
+    return Object.values(credits).every((value) => value !== "");
+  };
+
+  const capitalize = (string: string): string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
   return (
@@ -177,6 +211,70 @@ const SummaryCard = ({
               </Button>
             )}
           </div>
+          <div className="summary-item">
+            <p className="summary-label">Levels</p>
+            {validLevels() ? (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline">View All</Button>
+                </PopoverTrigger>
+                <PopoverContent>
+                  {Object.entries(levels).map(([level, value], index) => (
+                    <p key={index}>
+                      {level}: {value} points
+                    </p>
+                  ))}
+                  <Button
+                    style={{
+                      position: "absolute",
+                      bottom: "5px",
+                      right: "5px",
+                    }}
+                    variant="ghost"
+                    onClick={() => setTab("more-info")}
+                  >
+                    <Pencil2Icon />
+                  </Button>
+                </PopoverContent>
+              </Popover>
+            ) : (
+              <Button variant="outline" disabled>
+                Not yet selected
+              </Button>
+            )}
+          </div>
+          <div className="summary-item">
+            <p className="summary-label">Credits</p>
+            {validCredits() ? (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline">View All</Button>
+                </PopoverTrigger>
+                <PopoverContent>
+                  {Object.entries(credits).map(([level, value], index) => (
+                    <p key={index}>
+                      {capitalize(level)}: {value}
+                    </p>
+                  ))}
+                  <Button
+                    style={{
+                      position: "absolute",
+                      bottom: "5px",
+                      right: "5px",
+                    }}
+                    variant="ghost"
+                    onClick={() => setTab("more-info")}
+                  >
+                    <Pencil2Icon />
+                  </Button>
+                </PopoverContent>
+              </Popover>
+            ) : (
+              <Button variant="outline" disabled>
+                Not yet selected
+              </Button>
+            )}
+          </div>
         </div>
         {successMessage && (
           <p className="success-message submit-success">{successMessage}</p>
@@ -198,7 +296,13 @@ const SummaryCard = ({
             Save Game
           </Button>
           <Button
-            disabled={!dates && !requiredLetter && availableLetters.length != 6}
+            disabled={
+              !dates &&
+              !requiredLetter &&
+              availableLetters.length != 6 &&
+              !validLevels() &&
+              !validCredits()
+            }
             variant="destructive"
             onClick={() => {
               clear();
