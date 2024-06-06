@@ -7,9 +7,6 @@ Make game
  - display a test link on the future game card
  
  Play game
-  - display levels on home page and in popup
-  - display credits in popup
-  - change buttons to divs to avoid focus effect
   - add /test/:id route to test games
   - display rules on home screen
 

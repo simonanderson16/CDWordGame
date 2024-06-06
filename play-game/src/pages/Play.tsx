@@ -6,9 +6,9 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Card, CardContent } from "@/components/ui/card";
 import "../styles/Play.css";
 import { useEffect, useState } from "react";
 import { Game } from "@/types";
@@ -146,17 +146,45 @@ const Play = () => {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Instructions</DialogTitle>
               <DialogDescription>
+                <p className="info-header">Rules</p>
                 <p className="rules">
                   Always using the center letter, make as many words as possible
                   from the letters provided. Repeated letters are allowed. The
                   words must be four or more letters long. No proper nouns,
                   slang, epithets or slurs are permitted.
                 </p>
-                <p className="credits-header">Credits</p>
-                <p className="instructions-byline">
-                  Created by{" "}
+                {game && (
+                  <>
+                    <p className="info-header">Today's Levels</p>
+                    <p className="text-sm italic">One point equals one word.</p>
+                    <ul className="text-sm">
+                      <li>Wa: {game.levels.Wa} points</li>
+                      <li>Wahoo: {game.levels.Wahoo} points</li>
+                      <li>Wahoowa: {game.levels.Wahoowa} points</li>
+                      <li>WahooWOW: {game.levels.WahooWOW} points</li>
+                      <li>Average: {game.levels.Average} points</li>
+                    </ul>
+                  </>
+                )}
+                <p className="info-header">Credits</p>
+                {game?.credits.puzzle && (
+                  <p className="text-sm">Puzzle by {game?.credits.puzzle}</p>
+                )}
+                {game?.credits.words && (
+                  <p className="text-sm">
+                    Words from{" "}
+                    <a
+                      className="linkedin-link text-primary"
+                      href={game?.credits.words}
+                      target="_blank"
+                    >
+                      {game?.credits.words}
+                    </a>
+                  </p>
+                )}
+                <p className="text-sm">
+                  Site by{" "}
                   <a
                     className="linkedin-link text-primary"
                     href="https://www.linkedin.com/in/simonanderson16/"
@@ -217,7 +245,10 @@ const Play = () => {
                 <ArrowLeftIcon className="mr-2 h-4 w-4" />
                 Delete
               </div>
-              <div className="control-button border bg-primary text-white" onClick={handleShuffle}>
+              <div
+                className="control-button border bg-primary text-white"
+                onClick={handleShuffle}
+              >
                 <SymbolIcon />
               </div>
               <div className="control-button border" onClick={handleGuess}>
@@ -253,19 +284,49 @@ const Play = () => {
       ) : (
         <>
           {gameExists ? (
-            <Button
-              onClick={handlePlayGame}
-              disabled={!game}
-              className="play-button"
-            >
-              {loading ? (
-                <LoadingIcons.ThreeDots className="loading" speed={0.75} />
-              ) : (
-                <>
-                  <PlayIcon className="mr-2 h-4 w-4" /> Play Today's Game
-                </>
-              )}
-            </Button>
+            <>
+              <Button
+                onClick={handlePlayGame}
+                disabled={!game}
+                className="play-button"
+              >
+                {loading ? (
+                  <LoadingIcons.ThreeDots className="loading" speed={0.75} />
+                ) : (
+                  <>
+                    <PlayIcon className="mr-2 h-4 w-4" /> Play Today's Game
+                  </>
+                )}
+              </Button>
+              <div className="home-cards">
+                <Card className="home-card">
+                  <CardContent className="px-4 pt-2 pb-4">
+                    <h2 className="font-bold">Rules</h2>
+                    <p className="text-sm">
+                      Always using the center letter, make as many words as
+                      possible from the letters provided. Repeated letters are
+                      allowed. The words must be four or more letters long. No
+                      proper nouns, slang, epithets or slurs are permitted.
+                    </p>
+                  </CardContent>
+                </Card>
+                {game && (
+                  <Card className="home-card">
+                    <CardContent className="px-4 pt-2 pb-4">
+                      <h2 className="font-bold">Levels</h2>
+                      <p className="text-sm italic">One point equals one word.</p>
+                      <ul className="text-sm mt-1">
+                        <li>Wa: {game.levels.Wa} points</li>
+                        <li>Wahoo: {game.levels.Wahoo} points</li>
+                        <li>Wahoowa: {game.levels.Wahoowa} points</li>
+                        <li>WahooWOW: {game.levels.WahooWOW} points</li>
+                        <li>Average: {game.levels.Average} points</li>
+                      </ul>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            </>
           ) : (
             <p className="flex items-center gap-2 border p-3 rounded">
               No game today, come back soon <FaceIcon />

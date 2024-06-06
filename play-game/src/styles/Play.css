@@ -16,6 +16,15 @@
   gap: 0.5rem;
 }
 
+.home-cards {
+  width: 300px;
+  margin-top: 20px;
+}
+
+.home-card {
+  margin-bottom: 10px;
+}
+
 .cd-logo {
   width: 2rem;
   height: 2rem;
@@ -30,12 +39,12 @@
   gap: 10px;
 }
 
-.rules,
-.credits-header {
+.info-header {
   margin-top: 10px;
+  color: black
 }
 
-.credits-header {
+.info-header {
   font-weight: bold;
 }
 
