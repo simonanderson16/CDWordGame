@@ -12,7 +12,6 @@ Make game
   - change buttons to divs to avoid focus effect
   - add /test/:id route to test games
   - display rules on home screen
-  - remove NYT spelling bee
 
 Backend
 - make sure backend never crashes (add try-catch blocks)

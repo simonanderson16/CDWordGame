@@ -196,35 +196,34 @@ const Play = () => {
               )}
             </div>
             <div className="letters">
-              <Button
+              <div
                 onClick={() => handleLetterPress(game.requiredLetter)}
-                className="required-letter h-full text-2xl"
+                className="required-letter letter-button border text-2xl bg-primary text-white"
               >
                 {game.requiredLetter}
-              </Button>
+              </div>
               {game.availableLetters.map((letter, index) => (
-                <Button
+                <div
                   onClick={() => handleLetterPress(letter)}
-                  variant="outline"
                   key={index}
-                  className={`letter-${index} h-full text-2xl`}
+                  className={`letter-${index} letter-button border text-2xl`}
                 >
                   {letter}
-                </Button>
+                </div>
               ))}
             </div>
             <div className="game-controls">
-              <Button variant="outline" onClick={handleBackspace}>
+              <div className="control-button border" onClick={handleBackspace}>
                 <ArrowLeftIcon className="mr-2 h-4 w-4" />
                 Delete
-              </Button>
-              <Button onClick={handleShuffle}>
+              </div>
+              <div className="control-button border bg-primary text-white" onClick={handleShuffle}>
                 <SymbolIcon />
-              </Button>
-              <Button variant="outline" onClick={handleGuess}>
+              </div>
+              <div className="control-button border" onClick={handleGuess}>
                 <ArrowUpIcon className="mr-2 h-4 w-4" />
                 Enter
-              </Button>
+              </div>
             </div>
           </div>
           <div className="play-half-2">
@@ -272,7 +271,6 @@ const Play = () => {
               No game today, come back soon <FaceIcon />
             </p>
           )}
-          <p className="credits text-xs">Based on the NYT Spelling Bee</p>
         </>
       )}
     </div>
