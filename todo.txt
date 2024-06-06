@@ -1,12 +1,30 @@
-- refactor backend calls (store base url in a variable)
+Make game
+ - add ability to set and edit levels
+ - add ability to add credits
+    - puzzle by
+    - words from
+ - make answers popup scrollable
+ - display a test link on the future game card
+ 
+ Play game
+  - display levels on home page and in popup
+  - display credits in popup
+  - change buttons to divs to avoid focus effect
+  - add /test/:id route to test games
+  - display rules on home screen
+  - remove NYT spelling bee
+
+Backend
 - make sure backend never crashes (add try-catch blocks)
+
+===============================================================================
+
+Later On
 - add high score field on each game
 - shadcn scroll-area on make-game site
     - horizontal scrolls
     - past games and futire games
     - make game screen - view all answers popover
-- change letter grid from buttons to divs (avoid keyboard focus)
-    - and make them bigger
 - edit future games
 - store game values in context ? (avoid the need for so many props)
 - display backend error messages (i.e. firebase errors)
