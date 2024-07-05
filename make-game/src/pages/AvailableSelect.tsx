@@ -34,7 +34,7 @@ const AvailableSelect = ({
       const upperKey = key.toUpperCase();
       setCurrentSelection((prevSelection) => {
         const newSelection = [...prevSelection];
-        if (newSelection.length < 6 && !newSelection.includes(upperKey)) {
+        if (newSelection.length < 5 && !newSelection.includes(upperKey)) {
           newSelection.push(upperKey);
         } else if (!newSelection.includes(upperKey)) {
           newSelection[newSelection.length - 1] = upperKey;
@@ -66,7 +66,7 @@ const AvailableSelect = ({
     <Card>
       <CardHeader>
         <CardDescription>
-          <strong>Type</strong> the 6 additional letters which you would like to
+          <strong>Type</strong> the 5 additional letters which you would like to
           be available for this game.
         </CardDescription>
       </CardHeader>
@@ -80,7 +80,7 @@ const AvailableSelect = ({
             ))}
             {
               // empty squares
-              [...Array(6 - currentSelection.length)].map((_, index) => (
+              [...Array(5 - currentSelection.length)].map((_, index) => (
                 <div
                   className="selected-letter"
                   key={index + currentSelection.length}
@@ -92,7 +92,7 @@ const AvailableSelect = ({
           </div>
           <Button
             onClick={() => handleSubmit()}
-            disabled={currentSelection.length != 6}
+            disabled={currentSelection.length != 5}
           >
             Confirm
           </Button>

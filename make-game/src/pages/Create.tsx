@@ -80,7 +80,7 @@ const Create = () => {
           <TabsTrigger
             value="answers"
             disabled={
-              !dates || !requiredLetter || !(availableLetters.length === 6)
+              !dates || !requiredLetter || !(availableLetters.length === 5)
             }
           >
             4. Answers
@@ -90,7 +90,7 @@ const Create = () => {
             disabled={
               !dates ||
               !requiredLetter ||
-              !(availableLetters.length === 6) ||
+              !(availableLetters.length === 5) ||
               answers.length === 0
             }
           >

@@ -171,7 +171,7 @@ const SummaryCard = ({
           </div>
           <div className="summary-item">
             <p className="summary-label">Additional Letters</p>
-            {availableLetters.length === 6 ? (
+            {availableLetters.length === 5 ? (
               <Button variant="outline" onClick={() => setTab("available")}>
                 {availableLetters.join(" ")}
               </Button>
@@ -288,7 +288,7 @@ const SummaryCard = ({
             disabled={
               !dates ||
               !requiredLetter ||
-              availableLetters.length != 6 ||
+              availableLetters.length != 5 ||
               answers.length === 0
             }
             onClick={() => saveGame()}
@@ -299,7 +299,7 @@ const SummaryCard = ({
             disabled={
               !dates &&
               !requiredLetter &&
-              availableLetters.length != 6 &&
+              availableLetters.length != 5 &&
               !validLevels() &&
               !validCredits()
             }
