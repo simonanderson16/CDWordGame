@@ -84,7 +84,7 @@ const Play = () => {
       ) {
         setInputError("Bad Letters");
       } else if (!input.includes(game.requiredLetter)) {
-        setInputError("Missing Center Letter");
+        setInputError("Missing Required Letter");
       } else if (foundWords.includes(input)) {
         setInputError("Already Found");
       } else if (game.answers.includes(input)) {
@@ -149,7 +149,7 @@ const Play = () => {
               <DialogDescription>
                 <p className="info-header">Rules</p>
                 <p className="rules">
-                  Always using the center letter, make as many words as possible
+                  Always using the required (blue) letter, make as many words as possible
                   from the letters provided. Repeated letters are allowed. The
                   words must be four or more letters long. No proper nouns,
                   slang, epithets or slurs are permitted.
@@ -303,7 +303,7 @@ const Play = () => {
                   <CardContent className="px-4 pt-2 pb-4">
                     <h2 className="font-bold">Rules</h2>
                     <p className="text-sm">
-                      Always using the center letter, make as many words as
+                      Always using the required (blue) letter, make as many words as
                       possible from the letters provided. Repeated letters are
                       allowed. The words must be four or more letters long. No
                       proper nouns, slang, epithets or slurs are permitted.
