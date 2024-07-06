@@ -140,9 +140,9 @@ const Play = () => {
         <img className="cd-logo" src="./cdLogo.png" />
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="instructions-button">
+            <div className="instructions-button bg-primary text-white">
               <InfoCircledIcon />
-            </Button>
+            </div>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
@@ -226,7 +226,7 @@ const Play = () => {
             <div className="letters">
               <div
                 onClick={() => handleLetterPress(game.requiredLetter)}
-                className="required-letter letter-button border text-2xl bg-primary text-white"
+                className="required-letter letter-button text-2xl bg-primary text-white"
               >
                 {game.requiredLetter}
               </div>
@@ -246,7 +246,7 @@ const Play = () => {
                 Delete
               </div>
               <div
-                className="control-button border bg-primary text-white"
+                className="control-button bg-primary text-white"
                 onClick={handleShuffle}
               >
                 <SymbolIcon />
