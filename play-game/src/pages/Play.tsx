@@ -88,7 +88,7 @@ const Play = () => {
       } else if (foundWords.includes(input)) {
         setInputError("Already Found");
       } else if (game.answers.includes(input)) {
-        setFoundWords((prev) => [...prev, input]);
+        setFoundWords((prev) => [input, ...prev]);
       } else {
         setInputError("Not in Word List");
       }
