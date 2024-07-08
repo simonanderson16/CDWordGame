@@ -80,7 +80,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    min-width: 450px;
+    min-width: 400px;
 }
 
 .input-area {
@@ -154,8 +154,8 @@
 
 .flower {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 320px;
+    height: 320px;
 }
 
 .pentagon {
@@ -173,7 +173,7 @@
 }
 
 .center {
-    top: 35%;
+    top: 40%;
     left: 35%;
     transform: rotate(180deg);
     background-color: hsl(var(--primary));
@@ -181,7 +181,7 @@
 }
 
 .petal {
-    top: 35%;
+    top: 40%;
     left: 35%;
     transform-origin: center center;
 }
@@ -303,7 +303,14 @@
     margin: 5px 0;
 }
 
-@media (max-width: 950px) {
+@media (max-width: 850px) {
+    .play-half-1,
+    .play-half-2 {
+        min-width: 320px;
+    }
+}
+
+@media (max-width: 665px) {
     .play-container {
         height: 100%;
     }
@@ -359,43 +366,43 @@
     .petal1 {
         transform: rotate(0deg) translate(0, -65px);
     }
-    
+
     .petal2 {
         transform: rotate(72deg) translate(-3px, -63px);
     }
-    
+
     .petal3 {
         transform: rotate(144deg) translate(-3px, -60px);
     }
-    
+
     .petal4 {
         transform: rotate(216deg) translate(3px, -60px);
     }
-    
+
     .petal5 {
         transform: rotate(288deg) translate(3px, -63px);
     }
 
     .center:before {
-        transform: rotate(180deg) translateY(-2px)
+        transform: rotate(180deg) translateY(-2px);
     }
 
     .petal1::before {
         transform: rotate(0deg) translateY(2px);
     }
-    
+
     .petal2::before {
         transform: rotate(-72deg) translate(-3px, 0);
     }
-    
+
     .petal3::before {
         transform: rotate(-144deg) translate(-1px, -1px);
     }
-    
+
     .petal4::before {
         transform: rotate(144deg) translate(1px, -1px);
     }
-    
+
     .petal5::before {
         transform: rotate(72deg) translate(3px, 0);
     }
@@ -404,5 +411,4 @@
         width: 57px; /* Slightly smaller than the parent pentagon */
         height: 57px;
     }
-
 }

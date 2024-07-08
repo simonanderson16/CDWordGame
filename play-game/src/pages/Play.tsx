@@ -24,7 +24,7 @@ import LoadingIcons from "react-loading-icons";
 import axios from "axios";
 
 const Play = () => {
-  const MAX_WORD_LENGTH = 18;
+  const MAX_WORD_LENGTH = 14;
 
   const [game, setGame] = useState<Game | undefined>();
   const [playing, setPlaying] = useState<boolean>(false);
