@@ -408,7 +408,7 @@
     }
 
     .petal::after {
-        width: 57px; /* Slightly smaller than the parent pentagon */
-        height: 57px;
+        width: 58px; /* Slightly smaller than the parent pentagon */
+        height: 58px;
     }
 }
