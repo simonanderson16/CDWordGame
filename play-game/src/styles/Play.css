@@ -239,8 +239,8 @@
 .petal::after {
     content: "";
     position: absolute;
-    width: 97px; /* Slightly smaller than the parent pentagon */
-    height: 97px;
+    width: 98px; /* Slightly smaller than the parent pentagon */
+    height: 98px;
     background: white;
     z-index: 500;
     clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
