@@ -132,7 +132,7 @@
     animation: blink 1s infinite;
 }
 
-.letters {
+/* .letters {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(6, 1fr);
@@ -150,6 +150,100 @@
     align-items: center;
     font-weight: 500;
     cursor: pointer;
+} */
+
+.flower {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.pentagon {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: #e2e8f0;
+    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: black;
+    cursor: pointer;
+}
+
+.center {
+    top: 35%;
+    left: 35%;
+    transform: rotate(180deg);
+    background-color: hsl(var(--primary));
+    color: white;
+}
+
+.petal {
+    top: 35%;
+    left: 35%;
+    transform-origin: center center;
+}
+
+.petal1 {
+    transform: rotate(0deg) translate(0, -110px);
+}
+
+.petal2 {
+    transform: rotate(72deg) translate(-5px, -105px);
+}
+
+.petal3 {
+    transform: rotate(144deg) translate(-3px, -100px);
+}
+
+.petal4 {
+    transform: rotate(216deg) translate(3px, -100px);
+}
+
+.petal5 {
+    transform: rotate(288deg) translate(5px, -105px);
+}
+
+.petal::before,
+.center::before {
+    content: attr(data-letter);
+    z-index: 1000;
+}
+
+.center::before {
+    transform: rotate(180deg) translateY(-5px);
+}
+
+.petal1::before {
+    transform: rotate(0deg) translateY(5px);
+}
+
+.petal2::before {
+    transform: rotate(-72deg) translate(-5px, 0);
+}
+
+.petal3::before {
+    transform: rotate(-144deg) translate(-5px, -5px);
+}
+
+.petal4::before {
+    transform: rotate(144deg) translate(5px, -5px);
+}
+
+.petal5::before {
+    transform: rotate(72deg) translate(5px, 0);
+}
+
+.petal::after {
+    content: "";
+    position: absolute;
+    width: 97px; /* Slightly smaller than the parent pentagon */
+    height: 97px;
+    background: white;
+    z-index: 500;
+    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
 }
 
 .control-button,
@@ -169,8 +263,7 @@
     padding: 0.5rem 1rem;
 }
 
-.required-letter {
-    /* grid-area: 1 / 1 / 3 / 7; */
+/* .required-letter {
     grid-area: 1 / 2 / 3 / 6;
 }
 .letter-0 {
@@ -187,7 +280,7 @@
 }
 .letter-4 {
     grid-area: 5 / 4 / 7 / 6;
-}
+} */
 
 .game-controls {
     display: flex;
@@ -251,4 +344,65 @@
     .input-text {
         font-size: 1.25rem;
     }
+
+    .flower {
+        width: 170px;
+        height: 170px;
+    }
+
+    .pentagon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+    }
+
+    .petal1 {
+        transform: rotate(0deg) translate(0, -65px);
+    }
+    
+    .petal2 {
+        transform: rotate(72deg) translate(-3px, -63px);
+    }
+    
+    .petal3 {
+        transform: rotate(144deg) translate(-3px, -60px);
+    }
+    
+    .petal4 {
+        transform: rotate(216deg) translate(3px, -60px);
+    }
+    
+    .petal5 {
+        transform: rotate(288deg) translate(3px, -63px);
+    }
+
+    .center:before {
+        transform: rotate(180deg) translateY(-2px)
+    }
+
+    .petal1::before {
+        transform: rotate(0deg) translateY(2px);
+    }
+    
+    .petal2::before {
+        transform: rotate(-72deg) translate(-3px, 0);
+    }
+    
+    .petal3::before {
+        transform: rotate(-144deg) translate(-1px, -1px);
+    }
+    
+    .petal4::before {
+        transform: rotate(144deg) translate(1px, -1px);
+    }
+    
+    .petal5::before {
+        transform: rotate(72deg) translate(3px, 0);
+    }
+
+    .petal::after {
+        width: 57px; /* Slightly smaller than the parent pentagon */
+        height: 57px;
+    }
+
 }

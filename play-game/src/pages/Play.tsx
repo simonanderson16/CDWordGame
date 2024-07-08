@@ -223,20 +223,20 @@ const Play = () => {
                 <Badge className="input-error">{inputError}</Badge>
               )}
             </div>
-            <div className="letters">
+            <div className="flower">
               <div
                 onClick={() => handleLetterPress(game.requiredLetter)}
-                className="required-letter letter-button text-2xl bg-primary text-white"
+                className="pentagon center"
+                data-letter={game.requiredLetter}
               >
-                {game.requiredLetter}
               </div>
               {game.availableLetters.map((letter, index) => (
                 <div
                   onClick={() => handleLetterPress(letter)}
                   key={index}
-                  className={`letter-${index} letter-button border text-2xl`}
+                  className={`pentagon petal petal${index+1}`}
+                  data-letter={letter}
                 >
-                  {letter}
                 </div>
               ))}
             </div>
