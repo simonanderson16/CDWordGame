@@ -295,36 +295,16 @@ const Play = () => {
                     </div>
                     <div className="stepper-container mt-2 h-fit border rounded-md py-3">
                         <div className="flex w-full items-center justify-around">
-                            <div className="flex items-center">
-                                <div className="flex flex-col items-center">
-                                    <div className={`w-10 h-10 flex items-center justify-center rounded-full border ${checkLevel("Wa")}`}>{game.levels.Wa}</div>
-                                    <p className={`text-sm ${checkFontWeight("Wa")}`}>Wa</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center">
-                                <div className="flex flex-col items-center">
-                                    <div className={`w-10 h-10 flex items-center justify-center rounded-full border ${checkLevel("Wahoo")}`}>
-                                        {game.levels.Wahoo}
+                            {Object.entries(game.levels)
+                                .sort((a, b) => a[1] - b[1])
+                                .map(([key, value]) => (
+                                    <div key={key} className="flex items-center">
+                                        <div className="flex flex-col items-center">
+                                            <div className={`w-10 h-10 flex items-center justify-center rounded-full border ${checkLevel(key)}`}>{value}</div>
+                                            <p className={`text-sm ${checkFontWeight(key)}`}>{key}</p>
+                                        </div>
                                     </div>
-                                    <p className={`text-sm ${checkFontWeight("Wahoo")}`}>Wahoo</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center">
-                                <div className="flex flex-col items-center">
-                                    <div className={`w-10 h-10 flex items-center justify-center rounded-full border ${checkLevel("Wahoowa")}`}>
-                                        {game.levels.Wahoowa}
-                                    </div>
-                                    <p className={`text-sm ${checkFontWeight("Wahoowa")}`}>Wahoowa</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center">
-                                <div className="flex flex-col items-center">
-                                    <div className={`w-10 h-10 flex items-center justify-center rounded-full border ${checkLevel("WahooWOW")}`}>
-                                        {game.levels.WahooWOW}
-                                    </div>
-                                    <p className={`text-sm ${checkFontWeight("WahooWOW")}`}>WahooWOW</p>
-                                </div>
-                            </div>
+                                ))}
                         </div>
                     </div>
                 </>
