@@ -17,7 +17,6 @@ const AddNewUser = () => {
             await createUserWithEmailAndPassword(secondaryAuth, email, password);
             setErrorMessage("");
             setSuccessMessage("Successfully created account for " + email);
-            console.log(auth.currentUser)
         } catch (error: any) {
             setSuccessMessage("");
             setErrorMessage(error.message);
