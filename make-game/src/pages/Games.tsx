@@ -18,6 +18,7 @@ const Games = () => {
     const [tab, setTab] = useState<string>("today");
     const [allGames, setAllGames] = useState<Game[]>([]);
     const [totalPlays, setTotalPlays] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -39,9 +40,11 @@ const Games = () => {
     };
 
     const getAllGames = async () => {
+        setLoading(true);
         const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/create`);
         setAllGames(response.data);
         findTotalPlays(response.data);
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -58,47 +61,51 @@ const Games = () => {
                     Home
                 </Button>
             </Link>
-            <Tabs defaultValue="today" className="tabs mb-5" value={tab} onValueChange={onTabChange}>
-                <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="past">Past Games</TabsTrigger>
-                    <TabsTrigger value="today">Current Game</TabsTrigger>
-                    <TabsTrigger value="future">Future Games</TabsTrigger>
-                </TabsList>
-                <TabsContent value="past">
-                    <Card className="games-card scrollable-card">
-                        <CardHeader>
-                            <CardDescription>
-                                All of the following games have already ended. You can delete each one you would no longer like to store.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <PastGames allGames={allGames} getAllGames={getAllGames} />
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-                <TabsContent value="today">
-                    <Card className="games-card">
-                        <CardHeader>
-                            <CardDescription>The following game is currently active.</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <TodaysGame allGames={allGames} getAllGames={getAllGames}/>
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-                <TabsContent value="future">
-                    <Card className="games-card scrollable-card">
-                        <CardHeader>
-                            <CardDescription>
-                                All of the following games have been created but not yet released. You can delete any of these games.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <FutureGames allGames={allGames} getAllGames={getAllGames} />
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-            </Tabs>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <Tabs defaultValue="today" className="tabs mb-5" value={tab} onValueChange={onTabChange}>
+                    <TabsList className="grid w-full grid-cols-3">
+                        <TabsTrigger value="past">Past Games</TabsTrigger>
+                        <TabsTrigger value="today">Current Game</TabsTrigger>
+                        <TabsTrigger value="future">Future Games</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="past">
+                        <Card className="games-card scrollable-card">
+                            <CardHeader>
+                                <CardDescription>
+                                    All of the following games have already ended. You can delete each one you would no longer like to store.
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <PastGames allGames={allGames} getAllGames={getAllGames} />
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                    <TabsContent value="today">
+                        <Card className="games-card">
+                            <CardHeader>
+                                <CardDescription>The following game is currently active.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <TodaysGame allGames={allGames} getAllGames={getAllGames} />
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                    <TabsContent value="future">
+                        <Card className="games-card scrollable-card">
+                            <CardHeader>
+                                <CardDescription>
+                                    All of the following games have been created but not yet released. You can delete any of these games.
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <FutureGames allGames={allGames} getAllGames={getAllGames} />
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                </Tabs>
+            )}
         </div>
     );
 };
