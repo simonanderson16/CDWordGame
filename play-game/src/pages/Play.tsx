@@ -136,7 +136,7 @@ const Play = () => {
 
     return (
         <div className="play-container">
-            <h1 className="header">Hoos Spelling</h1>
+            <h1 className="header">Hoo's Spelling?</h1>
             <div className="top-right">
                 <img className="cd-logo" src="./cdLogo.png" />
                 <Dialog>
@@ -150,7 +150,7 @@ const Play = () => {
                             <DialogDescription>
                                 <p className="info-header">Rules</p>
                                 <p className="rules">
-                                    Always using the required (blue) letter, make as many words as possible from the letters provided. Repeated letters are
+                                    Always using the center letter, make as many words as possible from the letters provided. Repeated letters are
                                     allowed. The words must be four or more letters long. No proper nouns, slang, epithets or slurs are permitted.
                                 </p>
                                 {game && (
@@ -286,7 +286,7 @@ const Play = () => {
                                     <CardContent className="px-4 pt-2 pb-4">
                                         <h2 className="font-bold">Rules</h2>
                                         <p className="text-sm">
-                                            Always using the required (blue) letter, make as many words as possible from the letters provided. Repeated letters
+                                            Always using the center letter, make as many words as possible from the letters provided. Repeated letters
                                             are allowed. The words must be four or more letters long. No proper nouns, slang, epithets or slurs are permitted.
                                         </p>
                                     </CardContent>
