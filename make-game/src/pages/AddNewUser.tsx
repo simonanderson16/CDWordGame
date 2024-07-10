@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { auth, secondaryAuth } from "../../firebase.ts";
+import { secondaryAuth } from "../../firebase.ts";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
