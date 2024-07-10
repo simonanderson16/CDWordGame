@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import "../styles/Play.css";
 import { useEffect, useState } from "react";
 import { Game } from "@/types";
-import { PlayIcon, SymbolIcon, ArrowLeftIcon, ArrowUpIcon, FaceIcon, InfoCircledIcon } from "@radix-ui/react-icons";
+import { PlayIcon, SymbolIcon, ArrowLeftIcon, ArrowUpIcon, FaceIcon, InfoCircledIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 import LoadingIcons from "react-loading-icons";
 import axios from "axios";
 
@@ -20,6 +22,7 @@ const Play = () => {
     const [input, setInput] = useState<string>("");
     const [inputError, setInputError] = useState<string>("");
     const [foundWords, setFoundWords] = useState<string[]>([]);
+    const [alphabetical, setAlphabetical] = useState<boolean>(false);
 
     const fetchTodaysGame = async () => {
         const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/play`);
@@ -119,6 +122,15 @@ const Play = () => {
             return word.includes(game.requiredLetter) && game.availableLetters.every((letter) => word.includes(letter));
         } else {
             return false;
+        }
+    };
+
+    const getFoundWords = () => {
+        if (alphabetical) {
+            const copy = [...foundWords];
+            return copy.sort();
+        } else {
+            return foundWords;
         }
     };
 
@@ -230,11 +242,22 @@ const Play = () => {
                             </h2>
                         ) : (
                             <div className="w-full h-5/6 text-center">
-                                <h2 className="found-words-header mb-2">
-                                    You have found <span className="text-primary">{foundWords.length}</span> {foundWords.length === 1 ? "word" : "words"}
-                                </h2>
+                                <div className="flex items-center justify-between px-4">
+                                    <h2 className="found-words-header">
+                                        {/* <span className="text-primary">{foundWords.length}</span> {foundWords.length === 1 ? "Word" : "Words"} Found */}
+                                        Words Found: <span className="text-primary">{foundWords.length}</span>
+                                    </h2>
+                                    <div className="flex items-center space-x-2">
+                                        <Switch id="alphabetical" checked={alphabetical} onCheckedChange={() => setAlphabetical((prev) => !prev)} />
+                                        <Label htmlFor="alphabetical">
+                                            <div className="flex">
+                                                A<ArrowRightIcon />Z
+                                            </div>
+                                        </Label>
+                                    </div>
+                                </div>
                                 <ScrollArea className="found-words h-full w-full rounded-md py-2 px-5">
-                                    {foundWords.map((word, index) => (
+                                    {getFoundWords().map((word, index) => (
                                         <div key={index}>
                                             <p className="found-word">{isSpangram(word) ? <span className="text-primary font-bold">{word}</span> : word}</p>
                                             <div className="divider"></div>
