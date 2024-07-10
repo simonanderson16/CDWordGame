@@ -134,6 +134,30 @@ const Play = () => {
         }
     };
 
+    const checkLevel = (level: string) => {
+        if (game) {
+            if (foundWords.length >= game.levels[level as keyof Game["levels"]]) {
+                return "step-complete";
+            } else {
+                return "step-incomplete";
+            }
+        } else {
+            return "step-incomplete";
+        }
+    };
+
+    const checkFontWeight = (level: string) => {
+        if (game) {
+            if (foundWords.length >= game.levels[level as keyof Game["levels"]]) {
+                return "font-bold";
+            } else {
+                return "";
+            }
+        } else {
+            return "";
+        }
+    };
+
     return (
         <div className="play-container">
             <h1 className="header">Hoo's Spelling?</h1>
@@ -150,8 +174,8 @@ const Play = () => {
                             <DialogDescription>
                                 <p className="info-header">Rules</p>
                                 <p className="rules">
-                                    Always using the center letter, make as many words as possible from the letters provided. Repeated letters are
-                                    allowed. The words must be four or more letters long. No proper nouns, slang, epithets or slurs are permitted.
+                                    Always using the center letter, make as many words as possible from the letters provided. Repeated letters are allowed. The
+                                    words must be four or more letters long. No proper nouns, slang, epithets or slurs are permitted.
                                 </p>
                                 {game && (
                                     <>
@@ -188,86 +212,122 @@ const Play = () => {
                 </Dialog>
             </div>
             {game && playing ? (
-                <div className="play-inner-container">
-                    <div className="play-half-1">
-                        <div className="input-area">
-                            <div className="input-box">
-                                {input.split("").map((char, index) => (
-                                    <span
-                                        key={index}
-                                        className={
-                                            char === game.requiredLetter
-                                                ? "text-primary input-text"
-                                                : game.availableLetters.includes(char)
-                                                ? "input-text"
-                                                : "text-gray-400 input-text"
-                                        }
-                                    >
-                                        {char}
-                                    </span>
-                                ))}
-                                <div className="cursor"></div>
-                            </div>
-                            {inputError && <Badge className="input-error">{inputError}</Badge>}
-                        </div>
-                        <div className="flower">
-                            <div onClick={() => handleLetterPress(game.requiredLetter)} className="pentagon center" data-letter={game.requiredLetter}></div>
-                            {game.availableLetters.map((letter, index) => (
-                                <div
-                                    onClick={() => handleLetterPress(letter)}
-                                    key={index}
-                                    className={`pentagon petal petal${index + 1}`}
-                                    data-letter={letter}
-                                ></div>
-                            ))}
-                        </div>
-                        <div className="game-controls">
-                            <div className="control-button border" onClick={handleBackspace}>
-                                <ArrowLeftIcon className="mr-2 h-4 w-4" />
-                                Delete
-                            </div>
-                            <div className="control-button bg-primary text-white" onClick={handleShuffle}>
-                                <SymbolIcon />
-                            </div>
-                            <div className="control-button border" onClick={handleGuess}>
-                                <ArrowUpIcon className="mr-2 h-4 w-4" />
-                                Enter
-                            </div>
-                        </div>
-                    </div>
-                    <div className="play-half-2">
-                        {foundWords.length === 0 ? (
-                            <h2 className="found-words-header mb-2">
-                                You have found <span className="text-primary">0</span> words
-                            </h2>
-                        ) : (
-                            <div className="w-full h-5/6 text-center">
-                                <div className="flex items-center justify-between px-4">
-                                    <h2 className="found-words-header">
-                                        {/* <span className="text-primary">{foundWords.length}</span> {foundWords.length === 1 ? "Word" : "Words"} Found */}
-                                        Words Found: <span className="text-primary">{foundWords.length}</span>
-                                    </h2>
-                                    <div className="flex items-center space-x-2">
-                                        <Switch id="alphabetical" checked={alphabetical} onCheckedChange={() => setAlphabetical((prev) => !prev)} />
-                                        <Label htmlFor="alphabetical">
-                                            <div className="flex">
-                                                A<ArrowRightIcon />Z
-                                            </div>
-                                        </Label>
-                                    </div>
-                                </div>
-                                <ScrollArea className="found-words h-full w-full rounded-md py-2 px-5">
-                                    {getFoundWords().map((word, index) => (
-                                        <div key={index}>
-                                            <p className="found-word">{isSpangram(word) ? <span className="text-primary font-bold">{word}</span> : word}</p>
-                                            <div className="divider"></div>
-                                        </div>
+                <>
+                    <div className="play-inner-container">
+                        <div className="play-half-1">
+                            <div className="input-area">
+                                <div className="input-box">
+                                    {input.split("").map((char, index) => (
+                                        <span
+                                            key={index}
+                                            className={
+                                                char === game.requiredLetter
+                                                    ? "text-primary input-text"
+                                                    : game.availableLetters.includes(char)
+                                                    ? "input-text"
+                                                    : "text-gray-400 input-text"
+                                            }
+                                        >
+                                            {char}
+                                        </span>
                                     ))}
-                                </ScrollArea>
+                                    <div className="cursor"></div>
+                                </div>
+                                {inputError && <Badge className="input-error">{inputError}</Badge>}
                             </div>
-                        )}
+                            <div className="flower">
+                                <div onClick={() => handleLetterPress(game.requiredLetter)} className="pentagon center" data-letter={game.requiredLetter}></div>
+                                {game.availableLetters.map((letter, index) => (
+                                    <div
+                                        onClick={() => handleLetterPress(letter)}
+                                        key={index}
+                                        className={`pentagon petal petal${index + 1}`}
+                                        data-letter={letter}
+                                    ></div>
+                                ))}
+                            </div>
+                            <div className="game-controls">
+                                <div className="control-button border" onClick={handleBackspace}>
+                                    <ArrowLeftIcon className="mr-2 h-4 w-4" />
+                                    Delete
+                                </div>
+                                <div className="control-button bg-primary text-white" onClick={handleShuffle}>
+                                    <SymbolIcon />
+                                </div>
+                                <div className="control-button border" onClick={handleGuess}>
+                                    <ArrowUpIcon className="mr-2 h-4 w-4" />
+                                    Enter
+                                </div>
+                            </div>
+                        </div>
+                        <div className="play-half-2">
+                            {foundWords.length === 0 ? (
+                                <h2 className="found-words-header mb-2">
+                                    You have found <span className="text-primary">0</span> words
+                                </h2>
+                            ) : (
+                                <div className="w-full h-5/6 text-center">
+                                    <div className="flex items-center justify-between px-4">
+                                        <h2 className="found-words-header">
+                                            {/* <span className="text-primary">{foundWords.length}</span> {foundWords.length === 1 ? "Word" : "Words"} Found */}
+                                            Words Found: <span className="text-primary">{foundWords.length}</span>
+                                        </h2>
+                                        <div className="flex items-center space-x-2">
+                                            <Switch id="alphabetical" checked={alphabetical} onCheckedChange={() => setAlphabetical((prev) => !prev)} />
+                                            <Label htmlFor="alphabetical">
+                                                <div className="flex">
+                                                    A<ArrowRightIcon />Z
+                                                </div>
+                                            </Label>
+                                        </div>
+                                    </div>
+                                    <ScrollArea className="found-words h-full w-full rounded-md py-2 px-5">
+                                        {getFoundWords().map((word, index) => (
+                                            <div key={index}>
+                                                <p className="found-word">{isSpangram(word) ? <span className="text-primary font-bold">{word}</span> : word}</p>
+                                                <div className="divider"></div>
+                                            </div>
+                                        ))}
+                                    </ScrollArea>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div>
+                    <div className="stepper-container mt-2 h-fit border rounded-md py-3">
+                        <div className="flex w-full items-center justify-around">
+                            <div className="flex items-center">
+                                <div className="flex flex-col items-center">
+                                    <div className={`w-10 h-10 flex items-center justify-center rounded-full border ${checkLevel("Wa")}`}>{game.levels.Wa}</div>
+                                    <p className={`text-sm ${checkFontWeight("Wa")}`}>Wa</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center">
+                                <div className="flex flex-col items-center">
+                                    <div className={`w-10 h-10 flex items-center justify-center rounded-full border ${checkLevel("Wahoo")}`}>
+                                        {game.levels.Wahoo}
+                                    </div>
+                                    <p className={`text-sm ${checkFontWeight("Wahoo")}`}>Wahoo</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center">
+                                <div className="flex flex-col items-center">
+                                    <div className={`w-10 h-10 flex items-center justify-center rounded-full border ${checkLevel("Wahoowa")}`}>
+                                        {game.levels.Wahoowa}
+                                    </div>
+                                    <p className={`text-sm ${checkFontWeight("Wahoowa")}`}>Wahoowa</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center">
+                                <div className="flex flex-col items-center">
+                                    <div className={`w-10 h-10 flex items-center justify-center rounded-full border ${checkLevel("WahooWOW")}`}>
+                                        {game.levels.WahooWOW}
+                                    </div>
+                                    <p className={`text-sm ${checkFontWeight("WahooWOW")}`}>WahooWOW</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
             ) : (
                 <>
                     {gameExists ? (
@@ -286,8 +346,8 @@ const Play = () => {
                                     <CardContent className="px-4 pt-2 pb-4">
                                         <h2 className="font-bold">Rules</h2>
                                         <p className="text-sm">
-                                            Always using the center letter, make as many words as possible from the letters provided. Repeated letters
-                                            are allowed. The words must be four or more letters long. No proper nouns, slang, epithets or slurs are permitted.
+                                            Always using the center letter, make as many words as possible from the letters provided. Repeated letters are
+                                            allowed. The words must be four or more letters long. No proper nouns, slang, epithets or slurs are permitted.
                                         </p>
                                     </CardContent>
                                 </Card>

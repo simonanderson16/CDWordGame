@@ -303,10 +303,32 @@
     margin: 5px 0;
 }
 
+.stepper-container {
+    width: 60%;
+    min-width: 810px;
+}
+
+.step-complete {
+    background-color: hsl(var(--primary));
+    color: white;
+    border: none;
+    font-weight: bold;
+}
+
+.step-incomplete {
+    background-color: white;
+    color: black;
+    border: 1px solid #e2e8f0;
+}
+
 @media (max-width: 850px) {
     .play-half-1,
     .play-half-2 {
         min-width: 320px;
+    }
+
+    .stepper-container {
+        min-width: 650px;
     }
 }
 
@@ -321,6 +343,10 @@
         height: 80%;
         margin-top: 20px;
         padding: 0 10px;
+    }
+
+    .stepper-container {
+        display: none;
     }
 
     .header {
