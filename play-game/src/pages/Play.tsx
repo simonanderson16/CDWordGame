@@ -301,16 +301,14 @@ const Play = () => {
                             )}
                         </div>
                     </div>
-                    <div className="stepper-container mt-2 h-fit border rounded-md py-3">
-                        <div className="flex w-full items-center justify-around">
+                    <div className="stepper-box">
+                        <div className="stepper-container">
                             {Object.entries(game.levels)
                                 .sort((a, b) => a[1] - b[1])
                                 .map(([key, value]) => (
-                                    <div key={key} className="flex items-center">
-                                        <div className="flex flex-col items-center">
-                                            <div className={`w-10 h-10 flex items-center justify-center rounded-full border ${checkLevel(key)}`}>{value}</div>
-                                            <p className={`text-sm ${checkFontWeight(key)}`}>{key}</p>
-                                        </div>
+                                    <div className="stepper-step">
+                                        <div className={`stepper-value ${checkLevel(key)}`}>{value}</div>
+                                        <p className={`text-sm ${checkFontWeight(key)}`}>{key}</p>
                                     </div>
                                 ))}
                         </div>
