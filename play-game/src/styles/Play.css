@@ -327,13 +327,12 @@
 }
 
 .stepper-value {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 40px;
+    height: 40px;
+    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
     display: flex;
-    align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    border-width: 1px;
+    align-items: center;
 }
 
 .step-complete {
@@ -344,9 +343,20 @@
 }
 
 .step-incomplete {
-    background-color: white;
+    background-color: hsl(var(--border));
     color: black;
     border: 1px solid #e2e8f0;
+}
+
+.step-incomplete:after {
+    /* inner pentagon to create border effect */
+    content: "";
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    background: white;
+    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+    z-index: -1;
 }
 
 @media (max-width: 850px) {
@@ -355,7 +365,7 @@
         min-width: 320px;
     }
 
-    .stepper-container {
+    .stepper-box {
         min-width: 650px;
     }
 }
@@ -373,7 +383,7 @@
         padding: 0 10px;
     }
 
-    .stepper-container {
+    .stepper-box {
         display: none;
     }
 
