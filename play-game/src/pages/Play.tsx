@@ -162,7 +162,6 @@ const Play = () => {
         <div className="play-container">
             <h1 className="header">Hoo's Spelling?</h1>
             <div className="top-right">
-                <img className="cd-logo" src="./cdLogo.png" />
                 <Dialog>
                     <DialogTrigger asChild>
                         <div className="instructions-button bg-primary text-white">
@@ -190,6 +189,14 @@ const Play = () => {
                                         </ul>
                                     </>
                                 )}
+                                <p className="info-header">Found More Words?</p>
+                                <p>
+                                    If you find any additional words that are not accepted here, please email{" "}
+                                    <a href="mailto:cartoon@cavalierdaily.com" className="linkedin-link text-primary">
+                                        cartoon@cavalierdaily.com
+                                    </a>
+                                    .
+                                </p>
                                 <p className="info-header">Credits</p>
                                 {game?.credits.puzzle && <p className="text-sm">Puzzle by {game?.credits.puzzle}</p>}
                                 {game?.credits.words && (
@@ -210,6 +217,7 @@ const Play = () => {
                         </DialogHeader>
                     </DialogContent>
                 </Dialog>
+                <img className="cd-logo" src="./cdLogo.png" />
             </div>
             {game && playing ? (
                 <>
