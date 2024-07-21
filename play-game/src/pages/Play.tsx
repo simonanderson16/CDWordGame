@@ -160,7 +160,7 @@ const Play = () => {
 
     return (
         <div className="play-container">
-            <h1 className="header">Hoo's Spelling?</h1>
+            <h1 className="header">Hoo's Spelling</h1>
             <div className="top-right">
                 <Dialog>
                     <DialogTrigger asChild>
