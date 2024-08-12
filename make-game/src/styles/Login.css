@@ -44,6 +44,16 @@
   width: fit-content;
 }
 
+.login-success {
+  color: #07991a;
+  font-size: 0.8rem;
+  margin-top: 10px;
+  background-color: rgb(224, 245, 210);
+  padding: 5px;
+  border-radius: 5px;
+  width: fit-content;
+}
+
 .made-for {
   font-weight: bold;
   margin-top: 20px;
@@ -60,6 +70,7 @@
   bottom: 10px;
 }
 
-.email-link {
+.link {
   text-decoration: underline;
+  font-style: italic;
 }
