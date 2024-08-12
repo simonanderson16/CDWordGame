@@ -12,3 +12,5 @@ services:
       - /usr/src/app/node_modules
     ports:
       - 8888:8888
+    environment:
+      - TZ=America/New_York
