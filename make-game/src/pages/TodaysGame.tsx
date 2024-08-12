@@ -10,10 +10,11 @@ const TodaysGame = ({ allGames, getAllGames }: { allGames: Game[]; getAllGames: 
 
     useEffect(() => {
         const today = new Date();
+        const todayUTC = new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
         const gameForToday = allGames.find((game) => {
             const fromDate = new Date(game.dates.from);
             const toDate = new Date(game.dates.to);
-            return fromDate <= today && toDate >= today;
+            return fromDate <= todayUTC && toDate >= todayUTC;
         });
         setTodaysGame(gameForToday);
     }, [allGames]);

@@ -12,10 +12,11 @@ const PastGames = ({ allGames, getAllGames }: { allGames: Game[]; getAllGames: (
 
     const fetchPastGames = () => {
         const today = new Date();
+        const todayUTC = new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
         const pastGames = allGames
             .filter((game) => {
                 const toDate = new Date(game.dates.to);
-                return toDate < today;
+                return toDate < todayUTC;
             })
             .sort((a, b) => {
                 const aToDate = new Date(a.dates.to);
