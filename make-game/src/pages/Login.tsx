@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button.js";
 import { Input } from "@/components/ui/input.js";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { set } from "date-fns";
 
 const Login = () => {
     const [email, setEmail] = useState<string>("");
