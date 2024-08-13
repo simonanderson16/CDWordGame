@@ -9,12 +9,23 @@ const TodaysGame = ({ allGames, getAllGames }: { allGames: Game[]; getAllGames: 
     const [todaysGame, setTodaysGame] = useState<Game>();
 
     useEffect(() => {
-        const today = new Date();
-        const todayUTC = new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+        // Get the current time in UTC
+        const nowUTC = new Date();
+
+        // Convert the current time to EST by subtracting 5 hours
+        const nowEST = new Date(
+            nowUTC.getUTCFullYear(),
+            nowUTC.getUTCMonth(),
+            nowUTC.getUTCDate(),
+            nowUTC.getUTCHours() - 5,
+            nowUTC.getUTCMinutes(),
+            nowUTC.getUTCSeconds(),
+            nowUTC.getUTCMilliseconds()
+        );
         const gameForToday = allGames.find((game) => {
             const fromDate = new Date(game.dates.from);
             const toDate = new Date(game.dates.to);
-            return fromDate <= todayUTC && toDate >= todayUTC;
+            return fromDate <= nowEST && toDate >= nowEST;
         });
         setTodaysGame(gameForToday);
     }, [allGames]);

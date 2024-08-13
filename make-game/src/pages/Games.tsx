@@ -85,7 +85,10 @@ const Games = () => {
                     <TabsContent value="today">
                         <Card className="games-card">
                             <CardHeader>
-                                <CardDescription>The following game is currently active.</CardDescription>
+                                <CardDescription>
+                                    The following game is currently active. The "Available Until" date represents the first date the game will no longer be
+                                    available to play.
+                                </CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <TodaysGame allGames={allGames} getAllGames={getAllGames} />

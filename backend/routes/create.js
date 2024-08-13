@@ -14,8 +14,20 @@ const {
 router.post("/", async (req, res) => {
   const id = req.body.id;
   const data = req.body.data;
-  const fromDate = new Date(req.body.data.dates.from);
-  const toDate = new Date(req.body.data.dates.to);
+  let fromDate = new Date(req.body.data.dates.from);
+  let toDate = new Date(req.body.data.dates.to);
+  
+  // Set the "from" date to midnight EST (00:00:00)
+  fromDate.setUTCHours(5, 0, 0, 0); // 5 hours behind UTC for EST
+
+  // Add one day to the "to" date to ensure it's the end of that day in EST
+  toDate.setDate(toDate.getDate() + 1);
+  
+  // Set the "to" date to 11:59:59 PM EST
+  toDate.setUTCHours(4, 59, 59, 999); // 4 hours behind UTC for EST
+
+  data.dates.from = fromDate.toISOString();
+  data.dates.to = toDate.toISOString();
 
   const allGames = await getDocs(collection(db, "games"));
 

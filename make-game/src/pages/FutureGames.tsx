@@ -11,12 +11,23 @@ const FutureGames = ({ allGames, getAllGames }: { allGames: Game[]; getAllGames:
     const [openDialogId, setOpenDialogId] = useState<string | null>(null);
 
     const fetchFutureGames = () => {
-        const today = new Date();
-        const todayUTC = new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+        // Get the current time in UTC
+        const nowUTC = new Date();
+
+        // Convert the current time to EST by subtracting 5 hours
+        const nowEST = new Date(
+            nowUTC.getUTCFullYear(),
+            nowUTC.getUTCMonth(),
+            nowUTC.getUTCDate(),
+            nowUTC.getUTCHours() - 5,
+            nowUTC.getUTCMinutes(),
+            nowUTC.getUTCSeconds(),
+            nowUTC.getUTCMilliseconds()
+        );
         const futureGames = allGames
             .filter((game) => {
                 const fromDate = new Date(game.dates.from);
-                return fromDate > todayUTC;
+                return fromDate > nowEST;
             })
             .sort((a, b) => {
                 const aToDate = new Date(a.dates.to);
