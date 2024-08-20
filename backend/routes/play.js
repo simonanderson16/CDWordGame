@@ -14,18 +14,41 @@ const {
 // get today's game
 router.get("/", async (req, res) => {
   try {
-    const today = new Date();
-    const todayUTC = new Date(
-      today.getUTCFullYear(),
-      today.getUTCMonth(),
-      today.getUTCDate()
-    );
-    const todayStringNoTimeUTC = todayUTC.toISOString();
+    // const today = new Date();
+    // const todayUTC = new Date(
+    //   today.getUTCFullYear(),
+    //   today.getUTCMonth(),
+    //   today.getUTCDate()
+    // );
+    // const todayStringNoTimeUTC = todayUTC.toISOString();
 
+    // const querySnap = query(
+    //   collection(db, "games"),
+    //   where("dates.from", "<=", todayStringNoTimeUTC),
+    //   where("dates.to", ">=", todayStringNoTimeUTC)
+    // );
+
+    // Get the current time in UTC
+    const nowUTC = new Date();
+
+    // Convert the current time to EST by subtracting 5 hours
+    const nowEST = new Date(
+      nowUTC.getUTCFullYear(),
+      nowUTC.getUTCMonth(),
+      nowUTC.getUTCDate(),
+      nowUTC.getUTCHours() - 5,
+      nowUTC.getUTCMinutes(),
+      nowUTC.getUTCSeconds(),
+      nowUTC.getUTCMilliseconds()
+    );
+
+    const nowStringUTC = nowEST.toISOString();
+
+    // Query Firestore for games where the current time falls between the 'from' and 'to' times
     const querySnap = query(
       collection(db, "games"),
-      where("dates.from", "<=", todayStringNoTimeUTC),
-      where("dates.to", ">=", todayStringNoTimeUTC)
+      where("dates.from", "<=", nowStringUTC),
+      where("dates.to", ">=", nowStringUTC)
     );
 
     const todayGamesSnapshot = await getDocs(querySnap);
