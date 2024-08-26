@@ -86,8 +86,7 @@ const Games = () => {
                         <Card className="games-card">
                             <CardHeader>
                                 <CardDescription>
-                                    The following game is currently active. The "Available Until" date represents the first date the game will no longer be
-                                    available to play.
+                                    The following game is currently active. The game is available from 12:00 AM on the start date until 11:59 PM on the end date.
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>

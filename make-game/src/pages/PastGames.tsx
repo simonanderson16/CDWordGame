@@ -41,8 +41,11 @@ const PastGames = ({ allGames, getAllGames }: { allGames: Game[]; getAllGames: (
         fetchPastGames();
     }, [allGames]);
 
-    const formatDateString = (dateString: string) => {
+    const formatDateString = (dateString: string, isEndDate: boolean) => {
         const date = new Date(dateString);
+        if (isEndDate) {
+            date.setDate(date.getDate() - 1);
+        }
         return date.toDateString();
     };
 
@@ -61,11 +64,11 @@ const PastGames = ({ allGames, getAllGames }: { allGames: Game[]; getAllGames: (
                             <div className="past-grid">
                                 <div className="past-item-1 grid-item">
                                     <p className="font-bold">Start Date</p>
-                                    <p className="white-box">{formatDateString(game.dates.from)}</p>
+                                    <p className="white-box">{formatDateString(game.dates.from, false)}</p>
                                 </div>
                                 <div className="past-item-2 grid-item">
                                     <p className="font-bold">End Date</p>
-                                    <p className="white-box">{formatDateString(game.dates.to)}</p>
+                                    <p className="white-box">{formatDateString(game.dates.to, true)}</p>
                                 </div>
                                 <div className="past-item-3 grid-item">
                                     <p className="font-bold">Required Letter</p>
@@ -99,7 +102,7 @@ const PastGames = ({ allGames, getAllGames }: { allGames: Game[]; getAllGames: (
                                             <DialogTitle>Delete Game?</DialogTitle>
                                             <DialogDescription>
                                                 This action cannot be undone. This will permanently delete the game that took place from{" "}
-                                                {formatDateString(game.dates.from)} to {formatDateString(game.dates.to)}.
+                                                {formatDateString(game.dates.from, false)} to {formatDateString(game.dates.to, true)}.
                                             </DialogDescription>
                                         </DialogHeader>
                                         <Button
