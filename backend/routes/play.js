@@ -31,18 +31,24 @@ router.get("/", async (req, res) => {
     // Get the current time in UTC
     const nowUTC = new Date();
 
-    // Convert the current time to EST by subtracting 5 hours
-    const nowEST = new Date(
-      nowUTC.getUTCFullYear(),
-      nowUTC.getUTCMonth(),
-      nowUTC.getUTCDate(),
-      nowUTC.getUTCHours() - 5,
-      nowUTC.getUTCMinutes(),
-      nowUTC.getUTCSeconds(),
-      nowUTC.getUTCMilliseconds()
-    );
+    // TESTING
+    // make a date that is midnight UTC 9/2/2024
+    // const nowUTC = new Date(Date.UTC(2024, 8, 2, 4, 0, 0, 0));
+    // console.log("Now UTC", nowUTC.toISOString());
 
-    const nowStringUTC = nowEST.toISOString();
+
+    // Convert the current time to EST by subtracting 5 hours
+    // const nowEST = new Date(
+    //   nowUTC.getUTCFullYear(),
+    //   nowUTC.getUTCMonth(),
+    //   nowUTC.getUTCDate(),
+    //   nowUTC.getUTCHours() - 4,
+    //   nowUTC.getUTCMinutes(),
+    //   nowUTC.getUTCSeconds(),
+    //   nowUTC.getUTCMilliseconds()
+    // );
+
+    const nowStringUTC = nowUTC.toISOString();
 
     // Query Firestore for games where the current time falls between the 'from' and 'to' times
     const querySnap = query(
@@ -60,6 +66,8 @@ router.get("/", async (req, res) => {
         ...game.data(),
       });
     });
+
+    // console.log("Today's games", todayGames);
 
     if (todayGames.length === 0) {
       res.status(200).json({ message: "No games found for today." });
