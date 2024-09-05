@@ -30,11 +30,8 @@ const TodaysGame = ({ allGames, getAllGames }: { allGames: Game[]; getAllGames: 
         setTodaysGame(gameForToday);
     }, [allGames]);
 
-    const formatDateString = (dateString: string, isEndDate: boolean) => {
+    const formatDateString = (dateString: string) => {
         const date = new Date(dateString);
-        if (isEndDate) {
-            date.setDate(date.getDate() - 1);
-        }
         return date.toDateString();
     };
 
@@ -77,7 +74,7 @@ const TodaysGame = ({ allGames, getAllGames }: { allGames: Game[]; getAllGames: 
                     <div className="today-grid">
                         <div className="grid-item-1 grid-item">
                             <p className="font-bold">Available Until</p>
-                            <p className="white-box">{formatDateString(todaysGame.dates.to, true)}</p>
+                            <p className="white-box">{formatDateString(todaysGame.dates.to)}</p>
                         </div>
                         <div className="grid-item-2 grid-item">
                             <p className="font-bold">Required Letter</p>

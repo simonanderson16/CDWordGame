@@ -159,14 +159,14 @@ body {
 
 .flower {
     position: relative;
-    width: 320px;
-    height: 320px;
+    width: 300px;
+    height: 300px;
 }
 
 .pentagon {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     background: #e2e8f0;
     clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
     display: flex;
@@ -192,23 +192,23 @@ body {
 }
 
 .petal1 {
-    transform: rotate(0deg) translate(0, -110px);
+    transform: rotate(0deg) translate(0, -98px);
 }
 
 .petal2 {
-    transform: rotate(72deg) translate(-5px, -105px);
+    transform: rotate(72deg) translate(-3px, -95px);
 }
 
 .petal3 {
-    transform: rotate(144deg) translate(-3px, -100px);
+    transform: rotate(144deg) translate(-3px, -90px);
 }
 
 .petal4 {
-    transform: rotate(216deg) translate(3px, -100px);
+    transform: rotate(216deg) translate(3px, -90px);
 }
 
 .petal5 {
-    transform: rotate(288deg) translate(5px, -105px);
+    transform: rotate(288deg) translate(3px, -95px);
 }
 
 .petal::before,
@@ -244,8 +244,8 @@ body {
 .petal::after {
     content: "";
     position: absolute;
-    width: 98px; /* Slightly smaller than the parent pentagon */
-    height: 98px;
+    width: 88px; /* Slightly smaller than the parent pentagon */
+    height: 88px;
     background: white;
     z-index: 500;
     clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);

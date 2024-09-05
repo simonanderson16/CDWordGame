@@ -259,7 +259,7 @@ const Play = () => {
                                     <ArrowLeftIcon className="mr-2 h-4 w-4" />
                                     Delete
                                 </div>
-                                <div className="control-button bg-primary text-white" onClick={handleShuffle}>
+                                <div className="control-button border" onClick={handleShuffle}>
                                     <SymbolIcon />
                                 </div>
                                 <div className="control-button border" onClick={handleGuess}>
