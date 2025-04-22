@@ -107,14 +107,14 @@ const SummaryCard = ({
   const saveGame = async () => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/create`,
+        `${import.meta.env.VITE_SERVER_URL}/.netlify/functions/create`,
         getGameObject()
       );
       setErrorMessage("");
       setSuccessMessage(response.data.message);
     } catch (e: any) {
       setSuccessMessage("");
-      setErrorMessage(e.response.data.error);
+      setErrorMessage(e.response?.data?.error || "Unknown error");
     }
   };
 
